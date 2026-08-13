@@ -997,14 +997,17 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
 .final{text-align:center;}
 .final .wrap{max-width:1340px;}
 .close-inner{
-  max-width:860px;margin-inline:auto;
+  max-width:1060px;margin-inline:auto;
   display:flex;flex-direction:column;align-items:center;gap:18px;
 }
 .close-inner h2{max-width:22ch;}
+/* Medida más ancha que el resto de la página: centradas y a 66ch estas dos
+   quedaban en cuatro y cinco líneas cortas bajo un titular mucho más ancho. */
 .close-inner p{
   font-size:var(--step-1);line-height:1.7;
   color:rgba(226,238,252,.82);
-  max-width:var(--measure);
+  max-width:86ch;
+  text-wrap:balance;
 }
 .final .cta-row{margin-top:14px;justify-content:center;}
 
@@ -1573,7 +1576,7 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
 <!-- ============ FAQ ============ -->
 <section class="band band--tint-b">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head sh-center">
       <h2>Website Maintenance FAQs</h2>
     </div>
     <div class="faq">
