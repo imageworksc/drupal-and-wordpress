@@ -997,7 +997,7 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
 .final{text-align:center;}
 .final .wrap{max-width:1340px;}
 .close-inner{
-  max-width:1060px;margin-inline:auto;
+  max-width:1080px;margin-inline:auto;
   display:flex;flex-direction:column;align-items:center;gap:18px;
 }
 .close-inner h2{max-width:22ch;}
@@ -1010,12 +1010,17 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
   font-size:var(--step-1);line-height:1.7;
   color:rgba(226,238,252,.82);
   width:100%;
-  /* 940px es donde las dos primeras líneas caen ya casi llenas por sí solas
-     (~905px), así que justificar apenas las estira y no se abren los espacios */
-  max-width:940px;
-  text-align:justify;
-  text-align-last:center;
+  /* Medido: la 1ª línea nace en 1004px (P1) y 1021px (P2), así que a 1030 la
+     justificación solo rellena 26px y 9px. Es el ancho de todo el rango donde
+     ambos caen en dos líneas con menos hueco que repartir; a 940 el segundo
+     párrafo tenía que estirar 60px y ahí sí se abrían los espacios. */
+  max-width:1030px;
   text-wrap:wrap;
+}
+/* Justificar solo cuando la caja llega a su tope. Por debajo el ancho lo manda
+   el contenedor, la línea natural queda muy corta y el estirón se vería. */
+@media (min-width:1120px){
+  .close-inner p{text-align:justify;text-align-last:center;}
 }
 .final .cta-row{margin-top:14px;justify-content:center;}
 
