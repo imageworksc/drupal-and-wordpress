@@ -907,10 +907,17 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
 .plat-dr .plat-logo{background:#e3f1fb;}
 .plat-pad h2{font-size:var(--step-2);}
 .plat-pad p{font-size:15px;line-height:1.7;color:var(--muted);}
+/* mismo recurso que ya usan la lista de hosting y los pies de tabla: la palabra
+   clave sube a navy y a 700 sobre el gris del cuerpo */
+.plat-pad p strong,
+.rebuild-inline p strong{color:var(--navy);font-weight:700;}
 
 /* ---------- cuando el mantenimiento no basta ---------- */
+/* La banda de plataformas no lleva relleno inferior, así que este bloque
+   cerraba pegado a las dos tarjetas. Un respiro mayor que el hueco de 20px que
+   las separa entre sí lo lee como un bloque aparte, no como una tercera tarjeta. */
+.rebuild-band{padding-block:clamp(34px,3.6vw,48px) var(--band-y);}
 .rebuild-inline{
-  max-width:920px;
   padding:clamp(26px,3vw,34px);
   border-top:3px solid var(--blue);
   border-radius:var(--r);
@@ -1565,26 +1572,26 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
     <div class="plat-pad">
       <svg class="plat-logo" width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#21759B" d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"></path></svg>
       <h2>WordPress Website Maintenance</h2>
-      <p>WordPress websites depend on the core platform, themes, plugins, and third-party integrations working together correctly. Our WordPress maintenance plans keep security-related software updated while identifying and resolving errors, conflicts, performance problems, broken functionality, and responsive display issues.</p>
-      <p>Sites with many plugins, custom functionality, or significant accumulated issues may require additional Pro Maintenance hours.</p>
+      <p>WordPress websites depend on the <strong>core platform, themes, plugins, and third-party integrations</strong> working together correctly. Our WordPress maintenance plans keep <strong>security-related software updated</strong> while identifying and resolving errors, conflicts, performance problems, broken functionality, and responsive display issues.</p>
+      <p>Sites with many plugins, custom functionality, or significant accumulated issues may require <strong>additional Pro Maintenance hours</strong>.</p>
     </div>
   </div>
   <div class="plat-half plat-dr">
     <div class="plat-pad">
       <svg class="plat-logo" width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#0678BE" d="M15.78 5.113C14.09 3.425 12.48 1.815 11.998 0c-.48 1.815-2.09 3.425-3.778 5.113-2.534 2.53-5.405 5.4-5.405 9.702a9.184 9.185 0 1018.368 0c0-4.303-2.871-7.171-5.405-9.702M6.72 16.954c-.563-.019-2.64-3.6 1.215-7.416l2.55 2.788a.218.218 0 01-.016.325c-.61.625-3.204 3.227-3.527 4.126-.066.186-.164.18-.222.177M12 21.677a3.158 3.158 0 01-3.158-3.159 3.291 3.291 0 01.787-2.087c.57-.696 2.37-2.655 2.37-2.655s1.774 1.988 2.367 2.649a3.09 3.09 0 01.792 2.093A3.158 3.158 0 0112 21.677m6.046-5.123c-.068.15-.223.398-.431.405-.371.014-.411-.177-.686-.583-.604-.892-5.864-6.39-6.848-7.455-.866-.935-.122-1.595.223-1.94C10.736 6.547 12 5.285 12 5.285s3.766 3.574 5.336 6.016c1.57 2.443 1.029 4.556.71 5.253"></path></svg>
       <h2>Drupal Website Maintenance</h2>
-      <p>Drupal websites often require more specialized maintenance because updates may involve Drupal core, contributed modules, custom modules, themes, permissions, caching, server compatibility, and complex content structures.</p>
-      <p>Larger or highly customized Drupal websites will typically require more monthly hours because they have more components, dependencies, and potential issues to review and resolve.</p>
+      <p>Drupal websites often require <strong>more specialized maintenance</strong> because updates may involve Drupal core, contributed modules, custom modules, themes, permissions, caching, server compatibility, and complex content structures.</p>
+      <p>Larger or highly customized Drupal websites will typically require <strong>more monthly hours</strong> because they have more components, dependencies, and potential issues to review and resolve.</p>
     </div>
   </div>
 
 </section>
 
-<section class="band" style="padding-top:0;">
+<section class="band rebuild-band">
   <div class="wrap">
     <div class="rebuild-inline">
       <h3>When Maintenance Is Not Enough</h3>
-      <p>Some older websites have outdated code, incompatible components, broken templates, or years of accumulated problems. In certain cases, repairing everything would cost more than rebuilding the website correctly. When that happens, we will recommend the most practical path: continued maintenance, a larger cleanup project, or a new website.</p>
+      <p>Some older websites have <strong>outdated code, incompatible components, broken templates</strong>, or years of accumulated problems. In certain cases, <strong>repairing everything would cost more than rebuilding the website correctly</strong>. When that happens, we will recommend the most practical path: continued maintenance, a larger cleanup project, or a new website.</p>
     </div>
   </div>
 </section>
