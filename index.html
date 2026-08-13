@@ -901,11 +901,10 @@ table.plans tbody td:hover .ck{transform:scale(1.18);}
 [data-anim="on"] .plan-shell tbody tr:nth-child(9){transition-delay:.58s;}
 [data-anim="on"] .plan-shell tbody tr:nth-child(10){transition-delay:.64s;}
 
-/* Las cabeceras de plan suben primero, cada una tras la anterior.
-   La animación va en los HIJOS, nunca en .pp-wrap: ese lleva height:100%
-   dentro de un th con height:1px —el truco que iguala las tres columnas— y un
-   transform hace que ese 100% se resuelva contra 1px, con lo que la fila se
-   colapsa y su contenido se derrama sobre la tabla mientras dura la entrada. */
+/* Las cabeceras de plan suben primero, cada una tras la anterior. La animación
+   va en los hijos y no en .pp-wrap, que es contenedor flex y celda de tabla a
+   la vez: transformar ahí obliga a rehacer el reparto de la fila en cada
+   fotograma, y animar los hijos sale igual de bien y más barato. */
 [data-anim="on"] .plan-shell .pp-wrap > *{
   opacity:0;transform:translateY(10px);
   transition:opacity .6s var(--ease), transform .6s var(--ease);
