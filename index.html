@@ -602,14 +602,17 @@ table{border-collapse:separate;border-spacing:0;}
    su peso con una regla verde y el fondo de la tarjeta. */
 .feat-quote{
   width:100%;
-  padding:26px 30px;
+  padding:22px 26px;
   border-left:3px solid var(--green);
   border-radius:0 var(--r) var(--r) 0;
   background:linear-gradient(180deg,var(--card-top),var(--card-bottom));
   box-shadow:var(--shadow-flat);
-  font-size:var(--step-2);
+  /* Un escalón por debajo de --step-2 (23px): baja a 20px, todavía por encima
+     del cuerpo de 18px que lleva la columna, así que sigue leyéndose como cita
+     y no como un párrafo más. */
+  font-size:clamp(17px,.5vw + 15.5px,20px);
   font-weight:700;
-  line-height:1.5;
+  line-height:1.55;
   letter-spacing:-.018em;
   color:var(--navy);
 }
