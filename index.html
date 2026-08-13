@@ -607,13 +607,12 @@ table{border-collapse:separate;border-spacing:0;}
   border-radius:0 var(--r) var(--r) 0;
   background:linear-gradient(180deg,var(--card-top),var(--card-bottom));
   box-shadow:var(--shadow-flat);
-  /* Un escalón por debajo de --step-2 (23px): baja a 20px, todavía por encima
-     del cuerpo de 18px que lleva la columna, así que sigue leyéndose como cita
-     y no como un párrafo más. */
-  font-size:clamp(17px,.5vw + 15.5px,20px);
-  font-weight:700;
-  line-height:1.55;
-  letter-spacing:-.018em;
+  /* Por debajo del cuerpo de la columna (18px) y con menos peso: la distingue
+     el filete verde y el fondo de la tarjeta, no el tamaño ni la negrita. */
+  font-size:clamp(15.5px,.3vw + 14.5px,17px);
+  font-weight:600;
+  line-height:1.6;
+  letter-spacing:normal;
   color:var(--navy);
 }
 .entity{font-size:15px;line-height:1.7;color:var(--faint);max-width:var(--measure);}
@@ -653,6 +652,8 @@ table{border-collapse:separate;border-spacing:0;}
   /* el arco lleva pathLength="100", así que el guion se lee como porcentaje */
   stroke-dasharray:61 100;
 }
+/* El arco recorrido va en el azul de marca y la meta en verde: el mismo par
+   que la página usa para «esto es lo que hay» y «esto es lo que buscamos». */
 .ac-mark-ring{fill:#fff;}
 .ac-mark{fill:var(--green);}
 /* el número se apoya sobre la base del arco, no en el centro del círculo */
@@ -679,8 +680,10 @@ table{border-collapse:separate;border-spacing:0;}
   background:var(--grey-soft);
 }
 .ac-seg{display:block;height:100%;border-radius:var(--r);width:var(--w);}
+/* Rojo solo para los errores; el resto de la escala baja por la marca:
+   navy para los avisos, azul para las notas. */
 .ac-seg--err{background:#b23b3b;}
-.ac-seg--warn{background:#d98a1f;}
+.ac-seg--warn{background:var(--navy);}
 .ac-seg--note{background:var(--blue);}
 
 /* ---- leyenda ---- */
@@ -697,10 +700,10 @@ table{border-collapse:separate;border-spacing:0;}
 }
 .ac-row dd{margin:0;font-size:14.5px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;}
 .ac-dot{inline-size:9px;block-size:9px;border-radius:50%;flex:none;}
-.ac-dot--you{background:#d97b1f;}
+.ac-dot--you{background:var(--blue);}
 .ac-dot--rec{background:var(--green);}
 .ac-dot--err{background:#b23b3b;}
-.ac-dot--warn{background:#d98a1f;}
+.ac-dot--warn{background:var(--navy);}
 .ac-dot--note{background:var(--blue);}
 
 /* El arco y la barra crecen al entrar la tarjeta. Solo cuando el script está
@@ -1424,8 +1427,8 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
             <svg viewBox="0 0 240 134" aria-hidden="true">
               <defs>
                 <linearGradient id="acGaugeFill" x1="0" y1="1" x2="1" y2="0">
-                  <stop offset="0" stop-color="#e8a33d"/>
-                  <stop offset="1" stop-color="#d97b1f"/>
+                  <stop offset="0" stop-color="#1e6bb0"/>
+                  <stop offset="1" stop-color="#143c66"/>
                 </linearGradient>
               </defs>
               <path class="ac-track" d="M28 120 A92 92 0 0 1 212 120" pathLength="100"/>
