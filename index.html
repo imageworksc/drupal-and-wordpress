@@ -721,7 +721,10 @@ table{border-collapse:separate;border-spacing:0;}
    -------------------------------------------------------------------------- */
 .section-head{max-width:820px;margin-bottom:clamp(36px,4vw,50px);}
 .section-head p{margin-top:14px;font-size:clamp(17px,1.4vw,20px);font-weight:500;color:var(--muted);}
-.sh-center{text-align:center;max-width:760px;margin-inline:auto;}
+/* Medido: a 760px el lede cae en tres líneas y a 780 ya en dos. 840 mantiene
+   ese mismo corte (764/746, bien equilibrado) con 76px de holgura, para que un
+   render de fuente algo más ancho no lo devuelva a tres. */
+.sh-center{text-align:center;max-width:840px;margin-inline:auto;}
 .sh-center p{margin-inline:auto;}
 
 /* --------------------------------------------------------------------------
@@ -832,10 +835,21 @@ table.plans tbody th, table.plans tbody td{
   font-size:14.5px;line-height:1.5;
 }
 table.plans tbody th{
+  position:relative;
   background:var(--band-tint);
   font-weight:700;color:var(--navy);
   text-align:left;
 }
+/* un filete verde entra por el borde de la fila que se está leyendo */
+table.plans tbody th::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;
+  width:3px;
+  background:var(--green);
+  transform:scaleY(0);
+  transition:transform .28s var(--ease);
+}
+table.plans tbody tr:hover th::before{transform:scaleY(1);}
 table.plans tbody td:last-child, table.plans tbody th:last-child{border-right:none;}
 table.plans tbody tr:last-child th, table.plans tbody tr:last-child td{border-bottom:none;}
 table.plans tbody td{background:#fff;font-weight:600;color:var(--navy);text-align:center;}
@@ -851,7 +865,64 @@ table.plans tbody tr:first-child th, table.plans tbody tr:first-child td{
   border-bottom:1px solid #d3dde9;
 }
 table.plans tbody td.std{background:#f8fcf1;}
-.dash{color:var(--faint);font-weight:800;font-size:16px;}
+/* la columna recomendada se lee como un panel levantado dentro de la tabla:
+   dos hilos verdes la recorren de arriba abajo */
+table.plans .std{
+  box-shadow:inset 1px 0 0 rgba(128,195,74,.45), inset -1px 0 0 rgba(128,195,74,.45);
+}
+.dash{color:var(--faint);font-weight:800;font-size:16px;transition:color .25s var(--ease);}
+table.plans tbody tr:hover .dash{color:#9fb0c4;}
+
+/* El fondo se transiciona en la celda, no en la fila: la fila lleva un
+   `transition-delay` de entrada que si no retrasaría también el hover. */
+table.plans tbody td,
+table.plans tbody th{transition:background .25s var(--ease);}
+table.plans .ck{transition:transform .3s var(--ease);}
+table.plans tbody td:hover .ck{transform:scale(1.18);}
+
+/* ---- entrada escalonada de la tabla ----
+   Solo con el script vivo: sin él nunca llega `is-revealed` y la tabla se
+   quedaría invisible. */
+[data-anim="on"] .plan-shell tbody tr{
+  opacity:0;
+  transition:opacity .55s var(--ease);
+}
+[data-anim="on"] .plan-shell.is-revealed tbody tr{opacity:1;}
+[data-anim="on"] .plan-shell tbody tr:nth-child(1){transition-delay:.10s;}
+[data-anim="on"] .plan-shell tbody tr:nth-child(2){transition-delay:.16s;}
+[data-anim="on"] .plan-shell tbody tr:nth-child(3){transition-delay:.22s;}
+[data-anim="on"] .plan-shell tbody tr:nth-child(4){transition-delay:.28s;}
+[data-anim="on"] .plan-shell tbody tr:nth-child(5){transition-delay:.34s;}
+[data-anim="on"] .plan-shell tbody tr:nth-child(6){transition-delay:.40s;}
+[data-anim="on"] .plan-shell tbody tr:nth-child(7){transition-delay:.46s;}
+[data-anim="on"] .plan-shell tbody tr:nth-child(8){transition-delay:.52s;}
+[data-anim="on"] .plan-shell tbody tr:nth-child(9){transition-delay:.58s;}
+[data-anim="on"] .plan-shell tbody tr:nth-child(10){transition-delay:.64s;}
+
+/* las cabeceras de plan suben primero, cada una tras la anterior */
+[data-anim="on"] .plan-shell .pp-wrap{
+  opacity:0;transform:translateY(12px);
+  transition:opacity .6s var(--ease), transform .6s var(--ease);
+}
+[data-anim="on"] .plan-shell.is-revealed .pp-wrap{opacity:1;transform:none;}
+[data-anim="on"] .plan-shell thead th:nth-child(2) .pp-wrap{transition-delay:.06s;}
+[data-anim="on"] .plan-shell thead th:nth-child(3) .pp-wrap{transition-delay:.12s;}
+[data-anim="on"] .plan-shell thead th:nth-child(4) .pp-wrap{transition-delay:.18s;}
+
+/* las marcas de verificación aparecen con un pequeño rebote tras su fila */
+[data-anim="on"] .plan-shell .ck{
+  opacity:0;transform:scale(.55);
+  transition:opacity .4s var(--ease), transform .45s cubic-bezier(.34,1.56,.64,1);
+}
+[data-anim="on"] .plan-shell.is-revealed .ck{opacity:1;transform:none;}
+[data-anim="on"] .plan-shell.is-revealed tbody tr:nth-child(n+5) .ck{transition-delay:.42s;}
+[data-anim="on"] .plan-shell.is-revealed tbody tr:nth-child(-n+4) .ck{transition-delay:.30s;}
+/* El hover tiene que ganar a la regla de entrada, que es más específica, y
+   además soltar su retardo: si no, la marca tardaría medio segundo en crecer. */
+[data-anim="on"] .plan-shell.is-revealed tbody td:hover .ck{
+  transform:scale(1.18);
+  transition-delay:0s;
+}
 tr.cta-row th, tr.cta-row td{
   border-bottom:none;
   border-top:2px solid var(--navy);
