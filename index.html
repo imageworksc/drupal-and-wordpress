@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Website Maintenance Plans for WordPress &amp; Drupal | ImageWorks Creative</title>
+<meta name="theme-color" content="#143c66">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&amp;display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   ImageWorks Creative — Website Maintenance Plans
+   Sistema de diseño tomado de la página Custom Web Design:
+   https://imageworksc.github.io/Custom-Web-Design/
+   Tema claro único. Sin modo oscuro — la marca se compromete con un solo mundo visual.
+   ========================================================================== */
+
+:root{
+  color-scheme: light;
+
+  /* ---- marca ---- */
+  --navy:#143c66;
+  --navy-deep:#0a2c4d;
+  --blue:#1266b5;
+  --blue-bright:#1e6bb0;
+  --green:#80c34a;
+  --green-ink:#5c9a2e;
+  --ink:#1f2b3e;
+  --muted:#5a6b82;
+  --faint:#7d8ea1;
+  --nav-ink:#3d464d;
+
+  /* ---- superficies ---- */
+  --white:#ffffff;
+  --band-tint:#f2f5f9;
+  --band-tint-warm:#f1f3f6;
+  --card-top:#ffffff;
+  --card-bottom:#fcfdff;
+  --border:#e3eaf3;
+  --border-soft:#eef2f7;
+  --chip-blue:#c1daff;
+  --chip-green:#eaf6dd;
+  --tint-green:#eef6e6;
+  --tint-blue:#e5edf7;
+  --grey-soft:#e8edf4;
+  --grey-ink:#4f5f77;
+
+  --cta-band:linear-gradient(135deg,#1266b5,#0a2c4d);
+
+  /* ---- forma: la marca cuadra sus esquinas a 2px ---- */
+  --r:2px;
+
+  --shadow-card:0 1px 3px rgba(20,40,80,.08), 0 14px 34px rgba(20,40,80,.1);
+  --shadow-flat:0 1px 3px rgba(20,40,80,.07);
+  --shadow-lift:0 4px 12px rgba(20,40,80,.18);
+  --ring:0 0 0 3px rgba(128,195,74,.5), 0 0 0 1px rgba(20,60,102,.55);
+
+  /* ---- ritmo ---- */
+  --shell:1180px;
+  --gutter:clamp(22px,4vw,40px);
+  --band-y:clamp(64px,8vw,108px);
+  --nav-h:88px;
+  --measure:66ch;
+
+  /* ---- escala tipográfica, anclada en el h1 de 46px / h2 de 44px ---- */
+  --step--1:clamp(12.5px,.18vw + 12px,13.5px);
+  --step-0:clamp(15.5px,.25vw + 15px,17px);
+  --step-1:clamp(16.5px,.4vw + 15.5px,18px);
+  --step-2:clamp(19px,.9vw + 17px,23px);
+  --step-3:clamp(28px,2.6vw + 18px,44px);
+  --step-4:clamp(34px,3vw + 20px,46px);
+
+  --ease:cubic-bezier(.16,.84,.44,1);
+}
+
+/* --------------------------------------------------------------------------
+   BASE
+   -------------------------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box;}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px);}
+
+body{
+  margin:0;
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  font-size:var(--step-0);
+  font-weight:400;
+  line-height:1.65;
+  color:var(--ink);
+  background:var(--white);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  /* clip, no hidden: hidden convertiría el body en contenedor de scroll y
+     rompería el header sticky */
+  overflow-x:clip;
+}
+
+h1,h2,h3,h4{
+  margin:0;
+  color:var(--navy);
+  font-weight:800;
+  line-height:1.15;
+  letter-spacing:-.018em;
+  text-wrap:balance;
+}
+p{margin:0;text-wrap:pretty;}
+ul,ol,dl,dd{margin:0;padding:0;}
+li{list-style:none;}
+figure,blockquote{margin:0;}
+img,svg{display:block;max-width:100%;}
+a{color:inherit;}
+table{border-collapse:separate;border-spacing:0;}
+
+::selection{background:rgba(128,195,74,.28);}
+
+:where(a,button,summary,details,input):focus-visible{
+  outline:none;
+  box-shadow:var(--ring);
+  border-radius:var(--r);
+}
+
+.sr-only,.visually-hidden{
+  position:absolute;
+  width:1px;height:1px;
+  margin:-1px;padding:0;
+  overflow:hidden;
+  clip-path:inset(50%);
+  white-space:nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   LAYOUT — el sistema de bandas
+   -------------------------------------------------------------------------- */
+.wrap{
+  width:100%;
+  max-width:var(--shell);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+
+.band{
+  padding-block:var(--band-y);
+  background:var(--white);
+}
+.band--tint{background:var(--band-tint);}
+.band--tint-b{background:var(--band-tint-warm);}
+.band--snug{padding-block:clamp(44px,4.6vw,64px);}
+
+/* El cierre es la banda #cta de la marca: el mismo degradado con el mismo
+   campo de puntos encima. */
+.band--cta{
+  position:relative;
+  overflow:hidden;
+  padding-block:clamp(72px,8vw,112px);
+  background:var(--cta-band);
+  color:#fff;
+}
+.band--cta::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size:24px 24px;
+  pointer-events:none;
+}
+.band--cta > *{position:relative;}
+.band--cta h2,.band--cta h3{color:#fff;}
+
+/* --------------------------------------------------------------------------
+   COMPONENTES DE TIPO
+   -------------------------------------------------------------------------- */
+.sec-title,h2{
+  font-size:var(--step-3);
+  letter-spacing:-.018em;
+}
+.lead{
+  font-size:var(--step-1);
+  line-height:1.7;
+  max-width:var(--measure);
+  color:var(--muted);
+}
+.lead strong{color:var(--navy);font-weight:700;}
+.band--cta .lead{color:rgba(226,238,252,.82);}
+
+.note{
+  font-size:var(--step-1);
+  font-weight:700;
+  color:var(--navy);
+  max-width:var(--measure);
+}
+
+/* --------------------------------------------------------------------------
+   BOTONES Y ENLACES
+   -------------------------------------------------------------------------- */
+.btn{
+  display:inline-flex;
+  align-items:center;justify-content:center;
+  gap:11px;
+  height:54px;
+  padding-inline:26px;
+  border-radius:var(--r);
+  border:1.5px solid transparent;
+  font:inherit;
+  font-size:16px;font-weight:700;line-height:1;
+  text-decoration:none;
+  white-space:nowrap;
+  cursor:pointer;
+  transition:transform .25s var(--ease), background-color .25s ease,
+             border-color .25s ease, box-shadow .25s ease, color .25s ease;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);}
+.btn:active{transform:translateY(-1px);}
+.btn svg{flex:none;transition:transform .25s var(--ease);}
+.btn:hover svg{transform:translateX(4px);}
+
+.btn--solid{background:var(--green);border-color:var(--green);color:#fff;}
+.btn--solid:hover{filter:brightness(1.04);}
+
+.btn--quiet{background:transparent;border-color:var(--border);color:var(--navy);font-weight:600;}
+.btn--quiet:hover{border-color:#c3d6ea;}
+
+/* El botón primario del cierre es el botón #cta de la marca. */
+.band--cta .btn--solid{
+  height:58px;
+  padding-inline:36px;
+  font-size:17px;
+  box-shadow:0 1px 2px rgba(20,40,80,.14);
+}
+
+/* Sin `tr.cta-row`: la fila de botones de la tabla lleva la misma clase, y
+   convertirla en contenedor flex desmonta las celdas. */
+.btn-row,.close-inner .cta-row{display:flex;flex-wrap:wrap;gap:14px;}
+
+/* La marca subraya sus enlaces con una regla que crece desde la izquierda. */
+.iw-link{position:relative;text-decoration:none;}
+.iw-link::after{
+  content:'';
+  position:absolute;left:0;right:0;bottom:-3px;
+  height:1.5px;
+  background:currentColor;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease);
+}
+.iw-link:hover::after{transform:scaleX(1);}
+
+/* El círculo tintado de 22px, usado dondequiera que aparezca un check. */
+.chip{
+  inline-size:22px;block-size:22px;
+  border-radius:50%;
+  background:var(--chip-green);
+  color:var(--green-ink);
+  display:grid;place-items:center;
+  flex:none;
+}
+
+/* --------------------------------------------------------------------------
+   NAV — la tira de utilidades y luego la barra con desplegables al pasar
+   -------------------------------------------------------------------------- */
+/* La tira se va con el scroll y la barra de abajo se queda, para que la página
+   nunca arrastre 130px de cromo por la pantalla. */
+.utility-bar{
+  background:#f1f4f9;
+  border-bottom:1px solid var(--border);
+  padding:10px 0;
+}
+.utility-bar__inner{
+  max-width:1400px;margin:0 auto;padding:0 40px;
+  display:flex;justify-content:flex-end;align-items:center;gap:20px;
+  font-size:14px;
+}
+.utility-bar__item{
+  display:inline-flex;align-items:center;gap:8px;
+  text-decoration:none;color:var(--ink);font-weight:500;
+}
+.utility-bar__item:hover{color:var(--navy);}
+.utility-bar__icon{flex:none;inline-size:18px;block-size:18px;}
+.utility-bar__sep{color:#c9d1de;}
+
+.site-header{
+  position:sticky;top:0;z-index:120;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  transition:box-shadow .35s ease;
+}
+.site-header[data-stuck="true"]{box-shadow:0 6px 24px rgba(15,36,64,.10);}
+
+.nav__inner{
+  max-width:1400px;margin:0 auto;padding:0 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:var(--nav-h);
+}
+.brand{display:inline-flex;align-items:center;text-decoration:none;}
+.brand img{display:block;height:44px;width:auto;}
+
+.menu{display:flex;align-items:center;gap:4px;list-style:none;}
+.menu__item{position:relative;}
+.menu__link{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:32px 18px;
+  text-decoration:none;
+  color:var(--ink);
+  font:inherit;font-weight:600;font-size:15px;letter-spacing:-.005em;
+  cursor:pointer;background:none;border:0;position:relative;
+  transition:color .15s ease;
+}
+.menu__link:hover,.menu__item.is-open .menu__link{color:var(--navy);}
+.menu__link::after{
+  content:'';
+  position:absolute;left:18px;right:18px;bottom:24px;
+  block-size:2px;background:var(--green);
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform .2s ease;
+}
+.menu__link:hover::after,.menu__item.is-open .menu__link::after{transform:scaleX(1);}
+.menu__chev{inline-size:10px;block-size:10px;transition:transform .2s ease;}
+.menu__item.is-open .menu__chev{transform:rotate(180deg);}
+
+.menu__link--outline{
+  margin-left:12px;
+  padding:11px 26px;
+  border:2px solid var(--green);
+  border-radius:6px;
+  color:var(--green-ink);
+  transition:background-color .15s ease, color .15s ease;
+}
+.menu__link--outline::after{display:none;}
+.menu__link--outline:hover{background:var(--green);color:#fff;}
+
+/* ------------------------------- desplegables ------------------------------- */
+.dropdown{
+  position:absolute;top:100%;left:-8px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  min-width:408px;
+  box-shadow:
+    0 1px 2px rgba(20,60,102,.04),
+    0 8px 24px -6px rgba(20,60,102,.12),
+    0 24px 48px -12px rgba(20,60,102,.10);
+  opacity:0;visibility:hidden;transform:translateY(6px);
+  transition:opacity .16s ease, transform .16s cubic-bezier(.2,.8,.3,1), visibility .16s;
+}
+.menu__item.is-open .dropdown{opacity:1;visibility:visible;transform:translateY(0);}
+/* los dos últimos se saldrían por el borde derecho si se abrieran a la izquierda */
+.menu__item:nth-last-child(-n+2) .dropdown{left:auto;right:-8px;}
+.dropdown--narrow{min-width:252px;}
+.dropdown--flat{padding-block:17px;}
+.dropdown--flat .dropdown__link{padding-block:11px;}
+.dropdown__list{list-style:none;}
+.dropdown__section-label + .dropdown__list{padding-left:14px;}
+
+.dropdown__link{
+  position:relative;
+  display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;
+  column-gap:17px;
+  padding:10px 17px;
+  text-decoration:none;
+  color:#58657a;font-weight:600;font-size:15px;line-height:1.3;
+  border-radius:7px;
+  transition:background-color .12s ease, color .12s ease;
+}
+.dropdown__link > .dropdown__badge{margin-left:auto;}
+.dropdown__link-accent{
+  display:block;flex-basis:100%;margin-top:2px;
+  font-size:11.5px;font-weight:500;line-height:1.3;color:#8b95a5;
+  transition:color .12s ease;
+}
+/* una marca verde entra por la izquierda, el mismo gesto de los enlaces */
+.dropdown__link::before{
+  content:'';
+  position:absolute;left:4px;top:50%;
+  inline-size:3px;block-size:70%;
+  border-radius:2px;background:var(--green);
+  transform:translateY(-50%) scaleY(0);
+  transition:transform .15s cubic-bezier(.2,.8,.3,1);
+}
+.dropdown__link:hover{background:#dcebfa;color:var(--navy);}
+.dropdown__link:hover .dropdown__link-accent{color:var(--blue);}
+.dropdown__link:hover::before{transform:translateY(-50%) scaleY(1);}
+
+.dropdown__section-label{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 17px 7px;
+  font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:#4a7bab;
+}
+.dropdown__section-label::after{content:'';flex:1;block-size:1px;background:var(--border);}
+.dropdown__section-label--next{margin-top:22px;}
+.dropdown__badge{
+  display:inline-block;align-self:center;
+  padding:3px 8.5px;border-radius:4px;
+  font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  line-height:1.3;white-space:nowrap;
+  color:var(--green-ink);background:var(--chip-green);
+}
+
+/* --------------------------- la pantalla pequeña --------------------------- */
+.nav-toggle{display:none;}
+
+@media (max-width:1024px){
+  :root{--nav-h:72px;}
+  .utility-bar__inner{padding:0 20px;font-size:13px;gap:14px;}
+  .nav__inner{padding:0 20px;}
+  .brand img{height:36px;}
+
+  .nav-toggle{
+    display:inline-flex;flex-direction:column;justify-content:center;gap:5px;
+    inline-size:44px;block-size:44px;
+    margin-right:-10px;padding:0 10px;
+    border:0;background:transparent;cursor:pointer;
+  }
+  .nav-toggle span{
+    display:block;inline-size:24px;block-size:2px;border-radius:2px;
+    background:var(--navy);
+    transition:transform .3s ease, opacity .2s ease;
+  }
+  .nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-open .nav-toggle span:nth-child(2){opacity:0;}
+  .nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .menu{
+    display:none;
+    position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    max-height:calc(100vh - var(--nav-h));overflow-y:auto;
+    padding:4px 20px 18px;
+    background:#fff;
+    box-shadow:0 14px 30px rgba(15,36,64,.12);
+  }
+  .nav-open .menu{display:flex;}
+  .menu__item{border-top:1px solid var(--border-soft);}
+  .menu__item:first-child{border-top:0;}
+  .menu__link{inline-size:100%;justify-content:space-between;padding:15px 2px;font-size:16px;}
+  .menu__link::after{display:none;}
+  .menu__chev{display:none;}
+
+  /* desplegado, no flotante: un objetivo táctil dentro de un panel */
+  .dropdown{
+    position:static;opacity:1;visibility:visible;transform:none;
+    min-width:0;padding:0 0 12px;border:0;border-radius:0;box-shadow:none;
+  }
+  .dropdown__link{padding:10px 8px;font-size:14.5px;}
+  .dropdown__link::before{left:0;}
+  .dropdown__section-label{padding:10px 8px 6px;}
+  .dropdown__section-label--next{margin-top:10px;}
+  .menu__link--outline{margin:12px 0 0;justify-content:center;padding:13px 26px;}
+}
+
+/* --------------------------------------------------------------------------
+   HERO — terreno claro con lavados de color a la deriva
+   -------------------------------------------------------------------------- */
+.hero{
+  position:relative;
+  isolation:isolate;
+  display:flex;align-items:center;
+  overflow:hidden;
+  min-height:min(70vh,560px);
+  padding-block:clamp(56px,6vw,84px);
+  /* sin regla al pie y sin blanco plano: el terreno entra en el tinte de la
+     banda siguiente, que arranca exactamente en el color donde este acaba */
+  background:linear-gradient(180deg,
+    var(--white) 0%,
+    var(--white) 56%,
+    var(--band-tint) 100%);
+}
+
+/* un elemento por lavado, movido con transform: relojes y direcciones
+   distintas, así se separan y se reencuentran en vez de deslizarse en bloque */
+.hero-wash{
+  position:absolute;top:0;left:0;right:0;
+  block-size:1040px;
+  z-index:-1;
+  overflow:hidden;pointer-events:none;
+  mask-image:linear-gradient(180deg,#000 0,#000 330px,transparent 600px);
+  -webkit-mask-image:linear-gradient(180deg,#000 0,#000 330px,transparent 600px);
+}
+.hero-wash span{position:absolute;left:50%;will-change:transform;}
+/* verde: abre arriba a la izquierda sobre el titular, baja hacia la derecha */
+.hero-wash__g{
+  inline-size:780px;block-size:640px;
+  margin-left:-870px;top:-220px;
+  background:radial-gradient(closest-side ellipse at center, rgba(128,195,74,.24), rgba(128,195,74,0) 100%);
+  animation:washG 71s linear infinite;
+}
+/* azul de marca: abre arriba a la derecha y corre al revés */
+.hero-wash__b{
+  inline-size:840px;block-size:700px;
+  margin-left:50px;top:-190px;
+  background:radial-gradient(closest-side ellipse at center, rgba(18,102,181,.21), rgba(18,102,181,0) 100%);
+  animation:washB 97s linear infinite;
+}
+/* cielo: el bajo, aparcado bajo la llamada a la acción. El más lento y ancho */
+.hero-wash__s{
+  inline-size:900px;block-size:660px;
+  margin-left:-410px;top:300px;
+  background:radial-gradient(closest-side ellipse at center, rgba(46,140,214,.21), rgba(46,140,214,0) 100%);
+  animation:washS 127s linear infinite;
+}
+/* un brillo cruzando la superficie, como se mueve la luz sobre una */
+.hero-wash::after{
+  content:'';
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(102deg,
+    rgba(255,255,255,0) 30%, rgba(255,255,255,.34) 50%, rgba(255,255,255,0) 70%);
+  background-repeat:no-repeat;
+  background-size:260% 100%;
+  animation:heroSheen 47s ease-in-out infinite;
+}
+@keyframes washG{
+  0%{transform:translate3d(0,0,0);}
+  25%{transform:translate3d(38%,22%,0);}
+  50%{transform:translate3d(64%,6%,0);}
+  75%{transform:translate3d(26%,-14%,0);}
+  100%{transform:translate3d(0,0,0);}
+}
+@keyframes washB{
+  0%{transform:translate3d(0,0,0);}
+  25%{transform:translate3d(-42%,26%,0);}
+  50%{transform:translate3d(-70%,-8%,0);}
+  75%{transform:translate3d(-30%,-24%,0);}
+  100%{transform:translate3d(0,0,0);}
+}
+@keyframes washS{
+  0%{transform:translate3d(0,0,0);}
+  25%{transform:translate3d(-34%,-18%,0);}
+  50%{transform:translate3d(-58%,10%,0);}
+  75%{transform:translate3d(-18%,20%,0);}
+  100%{transform:translate3d(0,0,0);}
+}
+@keyframes heroSheen{
+  0%,100%{background-position:124% 0;}
+  50%{background-position:-24% 0;}
+}
+
+.hero-inner{position:relative;text-align:left;}
+.hero-main{display:flex;flex-direction:column;align-items:flex-start;gap:22px;}
+
+.hero h1{
+  font-size:clamp(min(9vw,36px),4.2vw + 8px,60px);
+  line-height:1.08;
+  letter-spacing:-.035em;
+  max-width:19ch;
+  text-wrap:balance;
+}
+/* la frase de apoyo es el acento verde del sistema, no un segundo titular */
+.hero .subhead{
+  font-size:clamp(18px,.9vw + 15px,23px);
+  font-weight:800;
+  line-height:1.25;
+  letter-spacing:-.018em;
+  color:var(--green-ink);
+  max-width:34ch;
+}
+.hero p.body{
+  font-size:clamp(16.5px,.55vw + 15px,18.5px);
+  line-height:1.65;
+  font-weight:500;
+  max-width:56ch;
+  color:var(--muted);
+  text-wrap:pretty;
+}
+.hero .btn{margin-top:10px;}
+
+/* Entrada escalonada: cada bloque sube con su propio retardo. `backwards`
+   suelta el relleno al terminar, así el hover sigue mandando. */
+@media (prefers-reduced-motion:no-preference){
+  [data-hero-anim="on"] .hero h1,
+  [data-hero-anim="on"] .hero .subhead,
+  [data-hero-anim="on"] .hero p.body,
+  [data-hero-anim="on"] .hero .btn{animation:hero-in .8s var(--ease) backwards;}
+  [data-hero-anim="on"] .hero h1{animation-delay:.06s;}
+  [data-hero-anim="on"] .hero .subhead{animation-delay:.26s;}
+  [data-hero-anim="on"] .hero p.body{animation-delay:.40s;}
+  [data-hero-anim="on"] .hero .btn{animation-delay:.54s;}
+}
+@keyframes hero-in{from{opacity:0;transform:translateY(14px);}}
+
+/* --------------------------------------------------------------------------
+   TARJETA — la receta de la marca: esquina de 2px, blanco a #fcfdff, sombra en capas
+   -------------------------------------------------------------------------- */
+.card{
+  background:linear-gradient(180deg,var(--card-top),var(--card-bottom));
+  border-radius:var(--r);
+  box-shadow:var(--shadow-card);
+}
+
+/* --------------------------------------------------------------------------
+   QUÉ / POR QUÉ — el argumento, partido en copia y prueba
+   -------------------------------------------------------------------------- */
+.ww-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(36px,5vw,64px);
+  align-items:center;
+}
+.ww-copy{display:flex;flex-direction:column;align-items:flex-start;gap:20px;}
+.ww-copy h2{max-width:20ch;}
+.ww-copy p{font-size:var(--step-1);line-height:1.7;color:var(--muted);max-width:var(--measure);}
+
+/* La cita es lo único de la página puesto en tipo y nada más, así que se gana
+   su peso con una regla verde y el fondo de la tarjeta. */
+.feat-quote{
+  width:100%;
+  padding:26px 30px;
+  border-left:3px solid var(--green);
+  border-radius:0 var(--r) var(--r) 0;
+  background:linear-gradient(180deg,var(--card-top),var(--card-bottom));
+  box-shadow:var(--shadow-flat);
+  font-size:var(--step-2);
+  font-weight:700;
+  line-height:1.5;
+  letter-spacing:-.018em;
+  color:var(--navy);
+}
+.entity{font-size:15px;line-height:1.7;color:var(--faint);max-width:var(--measure);}
+.entity strong{color:var(--navy);font-weight:700;}
+
+.ww-media{display:flex;flex-direction:column;gap:20px;}
+.audit-fig{
+  border-radius:var(--r);
+  overflow:hidden;
+  background:linear-gradient(180deg,var(--card-top),var(--card-bottom));
+  box-shadow:var(--shadow-card);
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.audit-fig:hover{transform:translateY(-6px);box-shadow:0 1px 3px rgba(20,40,80,.12), 0 22px 48px rgba(20,40,80,.16);}
+.audit-fig img{width:100%;height:auto;}
+
+/* --------------------------------------------------------------------------
+   CABECERA DE SECCIÓN
+   -------------------------------------------------------------------------- */
+.section-head{max-width:820px;margin-bottom:clamp(36px,4vw,50px);}
+.section-head p{margin-top:14px;font-size:clamp(17px,1.4vw,20px);font-weight:500;color:var(--muted);}
+.sh-center{text-align:center;max-width:760px;margin-inline:auto;}
+.sh-center p{margin-inline:auto;}
+
+/* --------------------------------------------------------------------------
+   PLANES — la comparativa
+   -------------------------------------------------------------------------- */
+.plan-table-wrap{margin-top:8px;}
+.plan-shell{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  box-shadow:var(--shadow-card);
+}
+table.plans{width:100%;background:transparent;font-size:14.5px;}
+
+table.plans thead th{
+  height:1px;                    /* habilita el height:100% del envoltorio */
+  vertical-align:top;
+  border-right:1px solid var(--border);
+  border-bottom:2px solid var(--navy);
+  padding:0;
+}
+table.plans thead th:last-child{border-right:none;}
+.pp-wrap{
+  height:100%;
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;
+  padding:26px 18px 22px;
+}
+.pp-wrap .pbtn{margin-top:auto;}
+
+/* la celda esquinera toma el campo azul profundo de la marca */
+table.plans thead th.corner{
+  position:relative;
+  width:22%;
+  background:linear-gradient(160deg,#205fa6 0%, #164784 47%, #0d2748 83%, #0a1c38 100%);
+}
+table.plans thead th.corner::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size:26px 26px;pointer-events:none;
+}
+table.plans thead th.corner .pp-wrap{justify-content:center;position:relative;}
+.pp-ic{flex:none;margin-bottom:12px;}
+.cp-title{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.018em;line-height:1.25;}
+.cp-sub{font-size:12.5px;font-weight:500;color:rgba(226,238,252,.72);line-height:1.5;margin-top:6px;max-width:17ch;}
+.cp-arrow{margin-top:16px;display:inline-flex;animation:cpnudge 1.6s ease-in-out infinite;}
+@keyframes cpnudge{0%,100%{transform:translateX(0);}50%{transform:translateX(5px);}}
+
+table.plans thead th.plan-panel{background:#fff;width:26%;}
+table.plans thead th.pp-std{
+  background:linear-gradient(180deg,#f7fbf0,#fff);
+  box-shadow:inset 0 3px 0 0 var(--green);
+}
+.pop{
+  display:inline-block;
+  font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 12px;
+  border-radius:var(--r);
+  background:var(--tint-green);color:var(--green-ink);
+  margin-bottom:12px;
+}
+.pop-pro{background:var(--tint-blue);color:var(--blue);}
+.pp-name{font-size:17px;font-weight:800;color:var(--navy);letter-spacing:-.018em;line-height:1.25;}
+.pp-tag{font-size:12.5px;font-weight:500;color:var(--muted);line-height:1.4;margin-top:6px;}
+.pp-hours{margin-top:16px;margin-bottom:4px;display:flex;flex-direction:column;align-items:center;}
+.pp-numline{display:inline-flex;align-items:center;gap:6px;}
+.hrs-ic{flex:none;}
+.pp-num{font-size:20px;font-weight:800;color:var(--green-ink);line-height:1;letter-spacing:-.018em;}
+.pp-per{display:block;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:7px;line-height:1;}
+.pp-sub{display:block;font-size:11.5px;font-weight:500;color:var(--muted);margin-top:4px;line-height:1.35;}
+.cell-hours{display:block;font-weight:800;color:var(--green-ink);}
+.cell-sub{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-top:2px;line-height:1.35;}
+.pp-alt{font-size:13px;font-weight:800;color:var(--navy);line-height:1.3;}
+
+.sec-note{
+  margin-top:16px;margin-bottom:4px;
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  background:#fbfdff;
+  padding:10px 14px 11px;
+}
+.sn-line{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:var(--navy);line-height:1.3;}
+.sn-line svg{flex:none;}
+.sn-sub{font-size:11.5px;font-weight:500;color:var(--muted);margin-top:4px;line-height:1.35;}
+
+.pbtn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:40px;
+  padding:9px 20px;
+  border:1.5px solid transparent;
+  border-radius:var(--r);
+  font:inherit;font-size:13px;font-weight:700;line-height:1;
+  text-decoration:none;cursor:pointer;
+  transition:transform .25s var(--ease), background-color .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
+}
+.pbtn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift);}
+.pbtn-solid{background:var(--green);border-color:var(--green);color:#fff;}
+.pbtn-solid:hover{filter:brightness(1.04);}
+.pbtn-ghost{background:#fff;border-color:var(--border);color:var(--navy);font-weight:600;}
+.pbtn-ghost:hover{border-color:#c3d6ea;}
+
+table.plans tbody th, table.plans tbody td{
+  padding:14px 22px;
+  border-bottom:1px solid var(--border);
+  border-right:1px solid var(--border);
+  vertical-align:middle;
+  font-size:14.5px;line-height:1.5;
+}
+table.plans tbody th{
+  background:var(--band-tint);
+  font-weight:700;color:var(--navy);
+  text-align:left;
+}
+table.plans tbody td:last-child, table.plans tbody th:last-child{border-right:none;}
+table.plans tbody tr:last-child th, table.plans tbody tr:last-child td{border-bottom:none;}
+table.plans tbody td{background:#fff;font-weight:600;color:var(--navy);text-align:center;}
+table.plans tbody tr:first-child td{background:var(--band-tint);}
+table.plans tr.grp-sec th, table.plans tr.grp-sec td{border-top:2px solid #d3dde9;}
+table.plans tbody tr{transition:background .25s ease;}
+table.plans tbody tr:hover td{background:#fafcfe;}
+table.plans tbody tr:hover td.std{background:#f1f8e6;}
+table.plans tbody tr:hover th{background:#eaf0f8;}
+table.plans tbody tr:first-child td.std{background:#f1f8e6;}
+table.plans tbody tr:first-child th, table.plans tbody tr:first-child td{
+  font-size:13.5px;color:var(--muted);font-weight:500;
+  border-bottom:1px solid #d3dde9;
+}
+table.plans tbody td.std{background:#f8fcf1;}
+.dash{color:var(--faint);font-weight:800;font-size:16px;}
+tr.cta-row th, tr.cta-row td{
+  border-bottom:none;
+  border-top:2px solid var(--navy);
+  padding:22px 24px 26px;
+}
+tr.cta-row th{background:var(--band-tint);}
+tr.cta-row td{background:#fff;text-align:center;}
+tr.cta-row td.std{background:#f8fcf1;}
+table.plans .ck{display:inline-block;vertical-align:-2px;}
+
+/* CTA compartido bajo la comparativa */
+.plans-cta{
+  margin-top:clamp(36px,4vw,56px);
+  display:flex;align-items:center;justify-content:space-between;gap:32px;
+  padding:clamp(26px,3vw,34px);
+  border-top:3px solid var(--blue);
+  border-radius:var(--r);
+  background:linear-gradient(180deg,var(--card-top),var(--card-bottom));
+  box-shadow:var(--shadow-card);
+}
+.cta-badge{
+  flex:none;
+  inline-size:52px;block-size:52px;
+  border-radius:var(--r);
+  background:var(--tint-blue);color:var(--blue);
+  display:grid;place-items:center;
+}
+/* el icono venía trazado en blanco para el círculo navy anterior */
+.cta-badge svg [stroke]{stroke:currentColor;}
+.cta-copy{flex:1;}
+.plans-cta h3{font-size:var(--step-2);}
+.plans-cta p{margin-top:8px;font-size:15px;line-height:1.7;color:var(--muted);max-width:56ch;}
+.plans-cta .btn{flex:none;}
+
+.plan-cards{display:none;}
+
+/* ---------- notas de la tabla ---------- */
+.table-notes{
+  margin-top:clamp(28px,3vw,40px);
+  padding-top:26px;
+  border-top:1px solid var(--border);
+  max-width:920px;
+}
+.table-notes .note{font-size:var(--step-0);font-weight:400;line-height:1.75;color:var(--muted);max-width:none;}
+.table-notes .note + .note{margin-top:16px;}
+.table-notes .note strong{color:var(--navy);font-weight:800;}
+.caption{margin-top:14px;font-size:15px;color:var(--muted);max-width:70ch;}
+
+/* --------------------------------------------------------------------------
+   HOSTING — el complemento
+   -------------------------------------------------------------------------- */
+.host-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:clamp(36px,5vw,64px);
+  align-items:start;
+}
+.host-copy h2{max-width:22ch;}
+.host-tag{
+  display:inline-block;vertical-align:middle;
+  font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 12px;
+  border-radius:var(--r);
+  background:var(--tint-green);color:var(--green-ink);
+  margin-left:12px;
+  transform:translateY(-5px);
+}
+.host-copy p{margin-top:16px;font-size:var(--step-1);line-height:1.7;color:var(--muted);max-width:52ch;}
+
+.host-points{margin-top:26px;}
+.host-points li{
+  position:relative;
+  padding:18px 0 18px 38px;
+  border-top:1px solid var(--border);
+  font-size:15.5px;line-height:1.7;color:var(--muted);
+}
+/* el mismo círculo tintado de 22px que la marca usa para cada check */
+.host-points li::before{
+  content:'';
+  position:absolute;left:0;top:19px;
+  inline-size:22px;block-size:22px;
+  border-radius:50%;
+  background:var(--chip-green);
+}
+.host-points li::after{
+  content:'';
+  position:absolute;left:7px;top:26px;
+  width:8px;height:4px;
+  border-left:2px solid var(--green-ink);
+  border-bottom:2px solid var(--green-ink);
+  transform:rotate(-45deg);
+}
+.host-points li strong{color:var(--navy);font-weight:700;}
+
+.host-tiers{position:sticky;top:calc(var(--nav-h) + 24px);display:grid;gap:20px;}
+.host-tier{
+  padding:clamp(24px,2.6vw,30px);
+  border-top:3px solid var(--blue);
+  border-radius:var(--r);
+  background:linear-gradient(180deg,var(--card-top),var(--card-bottom));
+  box-shadow:var(--shadow-card);
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.host-tier:nth-child(2){border-top-color:var(--green);}
+.host-tier:hover{transform:translateY(-6px);box-shadow:0 1px 3px rgba(20,40,80,.12), 0 22px 48px rgba(20,40,80,.16);}
+.ht-name{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);line-height:1.4;}
+.host-tier:nth-child(2) .ht-name{color:var(--green-ink);}
+.ht-price{margin-top:14px;display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;}
+.ht-from{font-size:12.5px;font-weight:600;color:var(--faint);margin-right:4px;}
+.ht-num{font-size:clamp(30px,2.4vw,38px);font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.03em;}
+.ht-per{font-size:13px;font-weight:600;color:var(--faint);}
+
+/* --------------------------------------------------------------------------
+   PLATAFORMAS — dos mitades, cada una con el color de su CMS arriba
+   -------------------------------------------------------------------------- */
+.plat-band{
+  width:100%;
+  max-width:var(--shell);
+  margin-inline:auto;
+  padding:var(--band-y) var(--gutter) 0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+.plat-half{
+  border-top:3px solid var(--border);
+  border-radius:var(--r);
+  background:linear-gradient(180deg,var(--card-top),var(--card-bottom));
+  box-shadow:var(--shadow-card);
+}
+.plat-wp{border-top-color:#21759B;}
+.plat-dr{border-top-color:#0678BE;}
+.plat-pad{padding:clamp(28px,3.2vw,40px);display:flex;flex-direction:column;align-items:flex-start;gap:16px;}
+.plat-logo{
+  inline-size:52px;block-size:52px;
+  border-radius:var(--r);
+  display:grid;place-items:center;
+  padding:11px;
+  margin-bottom:2px;
+}
+.plat-wp .plat-logo{background:#e7eff4;}
+.plat-dr .plat-logo{background:#e3f1fb;}
+.plat-pad h2{font-size:var(--step-2);}
+.plat-pad p{font-size:15px;line-height:1.7;color:var(--muted);}
+
+/* ---------- cuando el mantenimiento no basta ---------- */
+.rebuild-inline{
+  max-width:920px;
+  padding:clamp(26px,3vw,34px);
+  border-top:3px solid var(--blue);
+  border-radius:var(--r);
+  background:linear-gradient(180deg,var(--card-top),var(--card-bottom));
+  box-shadow:var(--shadow-card);
+}
+.rebuild-inline h3{font-size:var(--step-2);}
+.rebuild-inline p{margin-top:12px;font-size:var(--step-0);line-height:1.75;color:var(--muted);}
+
+/* --------------------------------------------------------------------------
+   FAQ — cerradas son hairlines; la abierta se levanta y se vuelve tarjeta
+   -------------------------------------------------------------------------- */
+.faq{width:100%;max-width:860px;margin-inline:auto;}
+.faq details{
+  border-top:1px solid var(--border);
+  border-radius:var(--r);
+  transition:background .3s var(--ease), box-shadow .3s var(--ease), border-color .2s var(--ease);
+}
+.faq details:last-of-type{border-bottom:1px solid var(--border);}
+.faq details[open]{
+  background:linear-gradient(180deg,var(--card-top),var(--card-bottom));
+  box-shadow:var(--shadow-card);
+  border-top-color:transparent;
+}
+.faq details[open] + details{border-top-color:transparent;}
+.faq details[open]:last-of-type{border-bottom-color:transparent;}
+
+.faq summary{
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  list-style:none;cursor:pointer;
+  padding:22px 8px;
+  font-size:var(--step-1);font-weight:700;color:var(--navy);line-height:1.4;
+  transition:color .2s var(--ease), padding .3s var(--ease);
+}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary:hover{color:var(--blue);}
+.faq details[open] summary{padding-inline:26px;color:var(--blue);}
+
+/* el marcador toma el vocabulario de la marca: contorno que se rellena */
+.faq summary .fx{
+  flex:none;
+  display:grid;place-items:center;
+  inline-size:34px;block-size:34px;
+  border:1.5px solid var(--border);
+  border-radius:50%;
+  color:var(--green-ink);
+  transition:transform .35s var(--ease), background-color .25s var(--ease),
+             border-color .25s var(--ease);
+}
+.faq summary .fx svg{stroke:currentColor;}
+.faq summary:hover .fx{border-color:var(--green);background:var(--tint-green);}
+.faq details[open] summary .fx{
+  transform:rotate(45deg);
+  background:var(--green);border-color:var(--green);
+  color:#143c1f;
+}
+.faq .faq-body{padding:0 26px 28px;}
+.faq .faq-body p{font-size:var(--step-0);line-height:1.75;color:var(--muted);max-width:68ch;}
+.faq .faq-body a{color:var(--blue);font-weight:700;text-decoration:none;position:relative;}
+.faq .faq-body a::after{
+  content:'';position:absolute;left:0;right:0;bottom:-3px;height:1.5px;
+  background:currentColor;transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease);
+}
+.faq .faq-body a:hover::after{transform:scaleX(1);}
+
+.faq details[open] .faq-body{animation:faq-in .42s var(--ease) both;}
+@keyframes faq-in{from{opacity:0;transform:translateY(-7px);}}
+
+/* altura animada donde el navegador la soporta, corte limpio donde no */
+@supports (interpolate-size:allow-keywords){
+  :root{interpolate-size:allow-keywords;}
+  .faq details::details-content{
+    block-size:0;overflow:hidden;
+    transition:block-size .34s var(--ease), content-visibility .34s allow-discrete;
+    transition-behavior:allow-discrete;
+  }
+  .faq details[open]::details-content{block-size:auto;}
+}
+
+/* --------------------------------------------------------------------------
+   CIERRE
+   -------------------------------------------------------------------------- */
+.final{text-align:center;}
+.final .wrap{max-width:1340px;}
+.close-inner{
+  max-width:860px;margin-inline:auto;
+  display:flex;flex-direction:column;align-items:center;gap:18px;
+}
+.close-inner h2{max-width:22ch;}
+.close-inner p{
+  font-size:var(--step-1);line-height:1.7;
+  color:rgba(226,238,252,.82);
+  max-width:var(--measure);
+}
+.final .cta-row{margin-top:14px;justify-content:center;}
+
+/* --------------------------------------------------------------------------
+   PIE
+   -------------------------------------------------------------------------- */
+.site-footer{
+  background:var(--navy-deep);
+  color:#fff;
+  padding:104px 40px 0;
+  font-size:16px;line-height:1.5;
+}
+.foot-grid{
+  max-width:1340px;margin-inline:auto;
+  display:grid;grid-template-columns:1fr 1.5fr 1.15fr;gap:80px;align-items:start;
+}
+.foot-grid > *{min-width:0;}
+.foot-logo{width:168px;max-width:100%;height:auto;}
+.foot-label{display:flex;align-items:center;gap:8px;font-weight:600;margin-top:20px;}
+.foot-logo + .foot-label{margin-top:26px;}
+.foot-label svg{flex:none;}
+.foot-detail{margin:4px 0 0 24px;color:rgba(255,255,255,.85);}
+.foot-detail a{color:#fff;font-weight:700;text-decoration:none;}
+.foot-social{display:flex;gap:10px;margin-top:26px;}
+.foot-social a{
+  display:grid;place-items:center;
+  width:40px;height:40px;
+  border-radius:var(--r);
+  background:rgba(255,255,255,.12);color:#fff;text-decoration:none;
+  transition:background .25s ease;
+}
+.foot-social a:hover{background:var(--green);}
+.foot-menus{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.foot-head{font-size:16px;font-weight:700;color:var(--green);letter-spacing:.5px;}
+.foot-head + .foot-list{margin-top:16px;}
+.foot-list{display:flex;flex-direction:column;gap:10px;}
+.foot-list a{font-size:16px;color:#fff;text-decoration:none;width:fit-content;}
+.foot-menus .foot-list + .foot-head{margin-top:28px;}
+.foot-map{
+  border-radius:var(--r);overflow:hidden;
+  box-shadow:0 1px 3px rgba(20,40,80,.12), 0 10px 26px rgba(20,40,80,.12);
+}
+.foot-map img{width:100%;height:auto;}
+.foot-news-title{margin-top:40px;font-size:16px;font-weight:700;}
+.foot-news-sub{margin-top:6px;font-size:15px;color:rgba(255,255,255,.85);}
+.foot-form{margin-top:12px;display:flex;gap:8px;max-width:320px;}
+.foot-form input{
+  flex:1;min-width:0;height:40px;
+  padding:0 12px;border:none;border-radius:var(--r);
+  font-family:inherit;font-size:14px;color:#333;
+}
+.foot-form button{
+  width:48px;height:40px;border:none;border-radius:var(--r);
+  background:var(--green);color:#fff;cursor:pointer;
+  display:grid;place-items:center;font-size:18px;line-height:1;
+  transition:transform .25s var(--ease), filter .25s ease;
+}
+.foot-form button:hover{transform:translateY(-2px);filter:brightness(1.05);}
+.foot-base{
+  max-width:1340px;margin:48px auto 0;
+  padding:22px 0;
+  border-top:1px solid rgba(255,255,255,.18);
+  text-align:center;font-size:14px;line-height:1.6;color:rgba(255,255,255,.85);
+}
+.foot-base a{color:#fff;text-decoration:none;}
+.foot-base-links{margin-top:8px;}
+.foot-tail{height:50px;}
+
+/* La marca apila esto a 1024px, en paso con el nav. */
+@media (max-width:1024px){
+  .site-footer{padding:72px 44px 0;}
+  .foot-grid{grid-template-columns:1fr;gap:52px;justify-items:center;}
+  .foot-grid > *{width:100%;max-width:480px;margin-inline:auto;text-align:left;}
+  .foot-form{max-width:100%;}
+}
+@media (max-width:520px){
+  .site-footer{padding:60px 34px 0;}
+  .foot-menus{grid-template-columns:1fr;gap:40px;}
+}
+
+/* --------------------------------------------------------------------------
+   REVEAL
+   -------------------------------------------------------------------------- */
+[data-anim="on"] .reveal{
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+  transition-delay:var(--reveal-delay,0ms);
+}
+[data-anim="on"] .reveal.is-revealed{opacity:1;transform:none;}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;}
+  html{scroll-behavior:auto;}
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width:960px){
+  .ww-grid{grid-template-columns:1fr;gap:36px;}
+  .host-grid{grid-template-columns:1fr;gap:36px;}
+  .host-tiers{position:static;grid-template-columns:1fr 1fr;}
+  .plans-cta{flex-direction:column;align-items:flex-start;gap:22px;}
+  .plat-band{grid-template-columns:1fr;}
+}
+@media (max-width:760px){
+  .plan-table-wrap{display:none;}
+  .plan-cards{display:grid;gap:20px;grid-template-columns:1fr;}
+  .plan-card{
+    border-top:3px solid var(--border);
+    border-radius:var(--r);
+    overflow:hidden;
+    background:linear-gradient(180deg,var(--card-top),var(--card-bottom));
+    box-shadow:var(--shadow-card);
+  }
+  .plan-card.pc-std{border-top-color:var(--green);}
+  .pc-head{padding:24px 24px 20px;border-bottom:1px solid var(--border);text-align:center;}
+  .pc-std .pc-head{background:linear-gradient(180deg,#f7fbf0,transparent);}
+  .pc-name{font-size:var(--step-2);font-weight:800;color:var(--navy);line-height:1.25;letter-spacing:-.018em;}
+  .pc-tag{font-size:14px;color:var(--muted);margin-top:6px;}
+  .pc-hours{margin-top:12px;}
+  .pc-row{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:13px 24px;
+    border-top:1px solid var(--border);
+    font-size:14.5px;
+  }
+  .pc-row:first-of-type{border-top:none;}
+  .pc-row .pc-label{font-weight:700;color:var(--navy);line-height:1.35;}
+  .pc-row .pc-val{text-align:right;color:var(--ink);line-height:1.45;}
+  .pc-valsub{display:block;font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .pc-cta{padding:18px 24px 22px;text-align:center;border-top:1px solid var(--border);}
+  .pc-cta .pbtn{margin-top:0;width:100%;}
+}
+@media (max-width:600px){
+  /* a ancho completo el rótulo más largo no cabe en una línea con el relleno
+     de escritorio: se deja envolver y la altura la fija el contenido */
+  .btn{
+    width:100%;
+    height:auto;min-height:54px;
+    padding-block:14px;padding-inline:22px;
+    white-space:normal;text-align:center;
+  }
+  .band--cta .btn--solid{min-height:58px;padding-inline:22px;}
+  .hero .btn{width:auto;}
+  .host-tiers{grid-template-columns:1fr;}
+  .faq summary{font-size:16.5px;padding:20px 4px;}
+  .faq details[open] summary{padding-inline:18px;}
+  .faq .faq-body{padding:0 18px 24px;}
+  .feat-quote{padding:22px 22px;}
+}
+</style>
+<script>document.documentElement.setAttribute('data-hero-anim', 'on');</script>
+</head>
+<body>
+
+<!-- La tira de utilidades se va con el scroll; solo la barra de abajo se queda. -->
+<div class="utility-bar">
+  <div class="utility-bar__inner">
+    <a href="#contact" class="utility-bar__item">
+      <svg class="utility-bar__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="5" y="4" width="14" height="18" rx="2" fill="#e8f2fd" stroke="#1266b5" stroke-width="1.6"/>
+        <path d="M9 3.5h6a1 1 0 0 1 1 1V6a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z" fill="#1266b5"/>
+        <path d="M8.5 12.5l1.4 1.4 2.6-2.8" stroke="#80C34A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="14" y1="12.2" x2="16.5" y2="12.2" stroke="#1266b5" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="8" y1="17.5" x2="16.5" y2="17.5" stroke="#1266b5" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      Support / Service Request
+    </a>
+    <span class="utility-bar__sep">|</span>
+    <a href="tel:7039287309" class="utility-bar__item">
+      <svg class="utility-bar__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6.5 4h3l1.3 3.3-2 1.4a12 12 0 0 0 5 5l1.4-2 3.3 1.3v3a1.8 1.8 0 0 1-2 1.8A15.5 15.5 0 0 1 4.7 6a1.8 1.8 0 0 1 1.8-2Z" fill="#80C34A"/>
+      </svg>
+      Call or text! (703) 928-7309
+    </a>
+  </div>
+</div>
+
+<header class="site-header" id="top" data-nav>
+  <div class="nav__inner">
+    <a class="brand" href="/" aria-label="ImageWorks Creative">
+      <img src="assets/logo.png" alt="ImageWorks Creative">
+    </a>
+
+    <ul class="menu nav-links" id="nav-links">
+      <li class="menu__item" data-menu="web">
+        <button class="menu__link" type="button" aria-haspopup="true" aria-expanded="false">
+          Web
+          <svg class="menu__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dropdown">
+          <div class="dropdown__section-label">Web Design</div>
+          <ul class="dropdown__list">
+            <li><a href="/" class="dropdown__link">Custom Website Design<span class="dropdown__link-accent">Drupal / WordPress</span></a></li>
+            <li><a href="/" class="dropdown__link">AI Website Design</a></li>
+            <li><a href="/" class="dropdown__link">Homepage Facelift<span class="dropdown__link-accent">Low Cost · Major Impact</span></a></li>
+          </ul>
+          <div class="dropdown__section-label dropdown__section-label--next">Website Services</div>
+          <ul class="dropdown__list">
+            <li><a href="/" class="dropdown__link">Website Content</a></li>
+            <li><a href="/" class="dropdown__link">Website Evolution<span class="dropdown__badge">Essential</span></a></li>
+            <li><a href="#top" class="dropdown__link">Website Maintenance<span class="dropdown__link-accent">Drupal &amp; WordPress</span></a></li>
+            <li><a href="/" class="dropdown__link">Advanced Website Animations</a></li>
+            <li><a href="/" class="dropdown__link">Creative Support Hours</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="menu__item" data-menu="marketing">
+        <button class="menu__link" type="button" aria-haspopup="true" aria-expanded="false">
+          Marketing
+          <svg class="menu__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dropdown">
+          <div class="dropdown__section-label">SEO + AIO <span class="dropdown__section-label-note">(Modern Search)</span></div>
+          <ul class="dropdown__list">
+            <li><a href="/seo-aio-services/" class="dropdown__link">Website Setup &amp; Optimization</a></li>
+            <li><a href="/seo-aio-services/" class="dropdown__link">On-Page Content Optimization</a></li>
+            <li><a href="/seo-aio-services/" class="dropdown__link">Link Building</a></li>
+            <li><a href="/seo-aio-services/" class="dropdown__link">Citations &amp; Entity Signals<span class="dropdown__link-accent">Local · SEO · AI Trust</span></a></li>
+          </ul>
+          <div class="dropdown__section-label dropdown__section-label--next">Local &amp; Paid Ads <span class="dropdown__section-label-note">(PPC)</span></div>
+          <ul class="dropdown__list">
+            <li><a href="/" class="dropdown__link">Google Profile &amp; Maps<span class="dropdown__badge">Rank Locally</span></a></li>
+            <li><a href="/" class="dropdown__link">Location &amp; Service-Area Pages</a></li>
+            <li><a href="/" class="dropdown__link">Google &amp; Meta Ads</a></li>
+            <li><a href="/" class="dropdown__link">Social Media Reels &amp; Ads</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="menu__item" data-menu="plans">
+        <button class="menu__link" type="button" aria-haspopup="true" aria-expanded="false">
+          Plans
+          <svg class="menu__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dropdown dropdown--narrow dropdown--flat">
+          <ul class="dropdown__list">
+            <li><a href="#plans" class="dropdown__link">Website Plans</a></li>
+            <li><a href="/" class="dropdown__link">Marketing Plans</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="menu__item"><a href="/" class="menu__link">Branding</a></li>
+      <li class="menu__item"><a href="/" class="menu__link">Portfolio</a></li>
+
+      <li class="menu__item" data-menu="about">
+        <button class="menu__link" type="button" aria-haspopup="true" aria-expanded="false">
+          About
+          <svg class="menu__chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4 L6 8 L10 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dropdown dropdown--narrow dropdown--flat">
+          <ul class="dropdown__list">
+            <li><a href="/" class="dropdown__link">About Us</a></li>
+            <li><a href="/" class="dropdown__link">Customer's Lounge</a></li>
+            <li><a href="/" class="dropdown__link">Blog</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="menu__item"><a href="#contact" class="menu__link menu__link--outline">Contact</a></li>
+    </ul>
+
+    <button class="nav-toggle" type="button" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section class="hero" data-hero>
+  <div class="hero-wash" aria-hidden="true"><span class="hero-wash__g"></span><span class="hero-wash__b"></span><span class="hero-wash__s"></span></div>
+  <div class="wrap hero-inner">
+    <div class="hero-main">
+      <h1>Website Maintenance Plans for WordPress &amp; Drupal</h1>
+      <div class="subhead">Keep Your Website Secure, Fast and Working Properly</div>
+      <p class="body">Our website maintenance plans keep your WordPress or Drupal site protected, updated, and running smoothly—while identifying and resolving the issues that can hurt performance, stability, functionality, and user experience.</p>
+      <a href="#plans" class="btn btn--solid">See Plans
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ WHAT / WHY ============ -->
+<section class="band band--tint">
+  <div class="wrap">
+    <div class="ww-grid">
+      <div class="ww-copy">
+        <h2>What Is Website Maintenance and Why Does It Matter?</h2>
+        <p>Website maintenance keeps your site secure, fast, reliable, and working properly through ongoing updates and issue resolution. Without proactive care, aging pages, routine edits, software conflicts, human errors, bots, and hacking attempts can slow your site down, create vulnerabilities, or cause important features to fail. Our plans provide expert support and the right amount of monthly maintenance time based on what your website actually needs.</p>
+        <p class="entity">ImageWorks Creative is a custom web design and digital marketing agency with offices in <strong>Northern Virginia</strong> and <strong>St.&nbsp;Petersburg, Florida</strong>, providing WordPress and Drupal website maintenance, managed hosting, and ongoing issue resolution for businesses across the United States.</p>
+        <blockquote class="feat-quote">It is common for an established business website to have hundreds of reported issues, while older, larger, or more complex websites may have thousands.</blockquote>
+      </div>
+      <div class="ww-media">
+        <figure class="audit-fig">
+          <img src="data:image/png;base64,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" alt="Website health audit score of 61, rated Mediocre, against a recommended score of 90 or higher" width="580" height="345" loading="lazy">
+        </figure>
+        <figure class="audit-fig">
+          <img src="data:image/png;base64,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" alt="Website health audit showing 8,612 reported issues: 416 errors, 1,302 warnings, and 6,894 notices" width="581" height="345" loading="lazy">
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLANS ============ -->
+<section class="band" id="plans">
+  <div class="wrap">
+    <div class="section-head sh-center">
+      <h2 class="plans-h2">Choose the Right Website Maintenance Plan</h2>
+      <p class="lede">We focus first on the issues that matter most. Monthly maintenance time is based primarily on the amount and complexity of issue resolution your website needs.</p>
+    </div>
+
+    <!-- Desktop comparison: unified four-column grid -->
+    <div class="plan-table-wrap">
+      <div class="plan-shell">
+      <table class="plans">
+        <thead>
+          <tr>
+            <th scope="col" class="corner">
+              <div class="pp-wrap">
+                <svg class="pp-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2.5" stroke="#fff" stroke-width="1.6"></rect><path d="M9 3.5V6h6V3.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"></path><path d="M8.5 10.5l1.2 1.2 2-2.2" stroke="#80C34A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 11h2.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"></path><path d="M8.5 15.5l1.2 1.2 2-2.2" stroke="#80C34A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 16h2.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"></path></svg>
+                <div class="cp-title">Compare Plans</div>
+                <div class="cp-sub">See what each level includes.</div>
+                <span class="cp-arrow" aria-hidden="true">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M4 12h15M13 6l6 6-6 6" stroke="#80C34A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </span>
+              </div>
+            </th>
+            <th scope="col" class="plan-panel">
+              <div class="pp-wrap">
+                <svg class="pp-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 2.6v5.1c0 4.6-3 7.7-7 9.3-4-1.6-7-4.7-7-9.3V5.6L12 3z" stroke="#143c66" stroke-width="1.6" stroke-linejoin="round"></path><path d="M8.8 11.8l2.2 2.2 4.2-4.6" stroke="#4a8628" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <div class="pp-name">Security &amp;<br>Updates Only</div>
+                <div class="sec-note">
+                  <div class="sn-line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Security updates only</span></div>
+                  <div class="sn-sub">Issue resolution not included</div>
+                </div>
+              </div>
+            </th>
+            <th scope="col" class="plan-panel pp-std">
+              <div class="pp-wrap">
+                <span class="pop">Most Popular</span>
+                <svg class="pp-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5l2.5 5.2 5.7.7-4.2 3.9 1.1 5.6L12 16.2l-5.1 2.7 1.1-5.6-4.2-3.9 5.7-.7L12 3.5z" stroke="#143c66" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+                <div class="pp-name">Standard Website Maintenance</div>
+                <div class="pp-hours">
+                  <span class="pp-numline"><svg class="hrs-ic" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.75" stroke="#4a8628" stroke-width="2"></circle><path d="M12 7.5V12l3 2" stroke="#4a8628" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="pp-num">2 hours</span></span>
+                  <span class="pp-per">per month</span>
+                  <span class="pp-sub">for issue resolution</span>
+                </div>
+              </div>
+            </th>
+            <th scope="col" class="plan-panel">
+              <div class="pp-wrap">
+                <span class="pop pop-pro">Best for Drupal Sites</span>
+                <svg class="pp-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4h10l4 5.5L12 20.5 3 9.5 7 4z" stroke="#143c66" stroke-width="1.6" stroke-linejoin="round"></path><path d="M3 9.5h18M9.5 4L8 9.5l4 11 4-11-1.5-5.5" stroke="#143c66" stroke-width="1.1" stroke-linejoin="round"></path></svg>
+                <div class="pp-name">Pro Website Maintenance</div>
+                <div class="pp-hours">
+                  <span class="pp-numline"><svg class="hrs-ic" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.75" stroke="#4a8628" stroke-width="2"></circle><path d="M12 7.5V12l3 2" stroke="#4a8628" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="pp-num">3–50+ hours</span></span>
+                  <span class="pp-per">per month</span>
+                  <span class="pp-sub">based on issue-resolution needs</span>
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Best for</th>
+            <td>Websites needing essential security updates only</td>
+            <td class="std">Websites needing regular issue resolution</td>
+            <td>Websites requiring more extensive ongoing issue resolution</td>
+          </tr>
+          <tr>
+            <th scope="row">Monthly issue-resolution time</th>
+            <td><span class="dash" aria-hidden="true">—</span><span class="sr-only">Not included</span></td>
+            <td class="std"><span class="cell-hours">2 hours per month</span><span class="cell-sub">for issue resolution</span></td>
+            <td><span class="cell-hours">3–50+ hours per month</span><span class="cell-sub">based on issue-resolution needs</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Issue and error resolution</th>
+            <td><span class="dash" aria-hidden="true">—</span><span class="sr-only">Not included</span></td>
+            <td class="std">Uses included hours</td>
+            <td>Uses included hours</td>
+          </tr>
+          <tr>
+            <th scope="row">Performance and stability issues</th>
+            <td><span class="dash" aria-hidden="true">—</span><span class="sr-only">Not included</span></td>
+            <td class="std">Uses included hours</td>
+            <td>Uses included hours</td>
+          </tr>
+          <tr>
+            <th scope="row">Mobile and responsive issues</th>
+            <td><span class="dash" aria-hidden="true">—</span><span class="sr-only">Not included</span></td>
+            <td class="std">Uses included hours</td>
+            <td>Uses included hours</td>
+          </tr>
+          <tr>
+            <th scope="row">Quarterly website health audits</th>
+            <td><span class="dash" aria-hidden="true">—</span><span class="sr-only">Not included</span></td>
+            <td class="std"><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></td>
+            <td><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></td>
+          </tr>
+          <tr class="grp-sec">
+            <th scope="row">WordPress and Drupal core security updates</th>
+            <td><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></td>
+            <td class="std"><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></td>
+            <td><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Security-related theme, plugin, and module updates</th>
+            <td><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></td>
+            <td class="std"><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></td>
+            <td><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Critical security patches</th>
+            <td><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></td>
+            <td class="std"><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></td>
+            <td><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></td>
+          </tr>
+                  <tr class="cta-row">
+            <th scope="row"></th>
+            <td><a class="pbtn pbtn-ghost" href="#contact">Get Pricing</a></td>
+            <td class="std"><a class="pbtn pbtn-solid" href="#contact">Get Pricing</a></td>
+            <td><a class="pbtn pbtn-ghost" href="#contact">Get a Recommendation</a></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- Mobile stacked plan cards -->
+    <div class="plan-cards">
+      <div class="plan-card">
+        <div class="pc-head">
+          <div class="pc-name">Security &amp; Updates Only</div>
+          <div class="pc-tag">Essential security protection</div>
+          <div class="pc-hours"><span class="pp-alt">Security updates only</span><span class="pp-sub">Issue resolution not included</span></div>
+        </div>
+        <div class="pc-row"><span class="pc-label">Best for</span><span class="pc-val">Websites needing essential security updates only</span></div>
+        <div class="pc-row"><span class="pc-label">Monthly issue-resolution time</span><span class="pc-val"><span class="dash" aria-hidden="true">—</span><span class="sr-only">Not included</span></span></div>
+        <div class="pc-row"><span class="pc-label">Issue and error resolution</span><span class="pc-val"><span class="dash" aria-hidden="true">—</span><span class="sr-only">Not included</span></span></div>
+        <div class="pc-row"><span class="pc-label">Performance and stability issues</span><span class="pc-val"><span class="dash" aria-hidden="true">—</span><span class="sr-only">Not included</span></span></div>
+        <div class="pc-row"><span class="pc-label">Mobile and responsive issues</span><span class="pc-val"><span class="dash" aria-hidden="true">—</span><span class="sr-only">Not included</span></span></div>
+        <div class="pc-row"><span class="pc-label">Quarterly audits</span><span class="pc-val"><span class="dash" aria-hidden="true">—</span><span class="sr-only">Not included</span></span></div>
+        <div class="pc-row"><span class="pc-label">Security updates</span><span class="pc-val"><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></span></div>
+        <div class="pc-cta"><a class="pbtn pbtn-ghost" href="#contact">Get Pricing</a></div>
+      </div>
+
+      <div class="plan-card pc-std">
+        <div class="pc-head">
+          <div class="pop">Most Popular</div>
+          <div class="pc-name">Standard Website Maintenance</div>
+          <div class="pc-tag">Regular issue resolution</div>
+          <div class="pc-hours"><span class="pp-num">2 hours</span><span class="pp-per">per month</span><span class="pp-sub">for issue resolution</span></div>
+        </div>
+        <div class="pc-row"><span class="pc-label">Best for</span><span class="pc-val">Websites needing regular issue resolution</span></div>
+        <div class="pc-row"><span class="pc-label">Monthly issue-resolution time</span><span class="pc-val">2 hours per month<span class="pc-valsub">for issue resolution</span></span></div>
+        <div class="pc-row"><span class="pc-label">Issue and error resolution</span><span class="pc-val">Uses included hours</span></div>
+        <div class="pc-row"><span class="pc-label">Performance and stability issues</span><span class="pc-val">Uses included hours</span></div>
+        <div class="pc-row"><span class="pc-label">Mobile and responsive issues</span><span class="pc-val">Uses included hours</span></div>
+        <div class="pc-row"><span class="pc-label">Quarterly audits</span><span class="pc-val"><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></span></div>
+        <div class="pc-row"><span class="pc-label">Security updates</span><span class="pc-val"><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></span></div>
+        <div class="pc-cta"><a class="pbtn pbtn-solid" href="#contact">Get Pricing</a></div>
+      </div>
+
+      <div class="plan-card">
+        <div class="pc-head">
+          <span class="pop pop-pro">Best for Drupal Sites</span>
+          <div class="pc-name">Pro Website Maintenance</div>
+          <div class="pc-tag">Extensive ongoing issue resolution</div>
+          <div class="pc-hours"><span class="pp-num">3–50+ hours</span><span class="pp-per">per month</span><span class="pp-sub">based on issue-resolution needs</span></div>
+        </div>
+        <div class="pc-row"><span class="pc-label">Best for</span><span class="pc-val">Websites requiring more extensive ongoing issue resolution</span></div>
+        <div class="pc-row"><span class="pc-label">Monthly issue-resolution time</span><span class="pc-val">3–50+ hours per month<span class="pc-valsub">based on issue-resolution needs</span></span></div>
+        <div class="pc-row"><span class="pc-label">Issue and error resolution</span><span class="pc-val">Uses included hours</span></div>
+        <div class="pc-row"><span class="pc-label">Performance and stability issues</span><span class="pc-val">Uses included hours</span></div>
+        <div class="pc-row"><span class="pc-label">Mobile and responsive issues</span><span class="pc-val">Uses included hours</span></div>
+        <div class="pc-row"><span class="pc-label">Quarterly audits</span><span class="pc-val"><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></span></div>
+        <div class="pc-row"><span class="pc-label">Security updates</span><span class="pc-val"><svg class="ck" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#4a8628" stroke-width="1.75" fill="#f0f8e4"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke="#4a8628" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Included</span></span></div>
+        <div class="pc-cta"><a class="pbtn pbtn-ghost" href="#contact">Get a Recommendation</a></div>
+      </div>
+    </div>
+
+    <div class="table-notes">
+      <p class="note"><strong>Quarterly Website Health Audits</strong> — Standard and Pro plans include quarterly audits to identify new errors, performance problems, mobile issues, broken functionality, and other concerns that develop over time. We prioritize the findings based on their impact, and the work to resolve them uses the monthly maintenance hours included in your plan.</p>
+      <p class="note"><strong>Issue Resolution Is the Core of Website Maintenance</strong> — It is not uncommon for a website to have hundreds of reported issues, while older or more complex websites may have thousands. We address the issues that matter most first—focusing on security, speed, stability, functionality, mobile usability, and important conversion paths—then work through lower-priority problems over time. Standard Website Maintenance includes two monthly hours for issue resolution. Pro Website Maintenance provides 3–50+ hours per month—or as much time as needed—based on issue volume, severity, and complexity.</p>
+    </div>
+
+    <div class="plans-cta">
+      <div class="cta-badge"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8.6" r="3.4" stroke="#fff" stroke-width="1.9"></circle><path d="M5.5 19c1-3.2 3.5-4.8 6.5-4.8s5.5 1.6 6.5 4.8" stroke="#fff" stroke-width="1.9" stroke-linecap="round"></path></svg></div>
+      <div class="cta-copy">
+        <h3>Not Sure Which Plan Fits?</h3>
+        <p>We’ll review your website and recommend the right level of maintenance based on its condition, issue volume, and support needs.</p>
+      </div>
+      <a href="#contact" class="btn btn--solid">Get a Maintenance Recommendation
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOSTING ADD-ON ============ -->
+<section class="band band--tint host-band">
+  <div class="wrap">
+    <div class="host-grid">
+      <div class="host-copy">
+        <h2>Managed Website Hosting <span class="host-tag">Add-On</span></h2>
+        <p>Add managed shared hosting to any maintenance plan. We are not a mass reseller, and it shows in how our hosting runs day to day.</p>
+        <ul class="host-points">
+          <li><strong>A small team, not an offshore queue.</strong> When something needs attention, you reach the people who actually manage the servers — not a ticket system routed through a call center reading from a script.</li>
+          <li><strong>Not jammed onto a server with 120,000 other sites.</strong> Mass hosts oversell shared servers until every site fights for resources. Our machines are carefully monitored, with load kept where performance stays consistent.</li>
+          <li><strong>Hosting and maintenance under one roof.</strong> The team hosting your site is the same boutique firm maintaining it — no finger-pointing between your host and your developer when something breaks.</li>
+        </ul>
+      </div>
+      <div class="host-tiers">
+        <div class="host-tier">
+          <div class="ht-name">Business Shared Hosting</div>
+          <div class="ht-price"><span class="ht-num">$55</span><span class="ht-per">/month</span></div>
+                  </div>
+        <div class="host-tier">
+          <div class="ht-name">Private Hosting</div>
+          <div class="ht-price"><span class="ht-from">starting at</span><span class="ht-num">$195</span><span class="ht-per">/month</span></div>
+                  </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLATFORMS ============ -->
+<section class="plat-band">
+  <div class="plat-half plat-wp">
+    <div class="plat-pad">
+      <svg class="plat-logo" width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#21759B" d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"></path></svg>
+      <h2>WordPress Website Maintenance</h2>
+      <p>WordPress websites depend on the core platform, themes, plugins, and third-party integrations working together correctly. Our WordPress maintenance plans keep security-related software updated while identifying and resolving errors, conflicts, performance problems, broken functionality, and responsive display issues.</p>
+      <p>Sites with many plugins, custom functionality, or significant accumulated issues may require additional Pro Maintenance hours.</p>
+    </div>
+  </div>
+  <div class="plat-half plat-dr">
+    <div class="plat-pad">
+      <svg class="plat-logo" width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#0678BE" d="M15.78 5.113C14.09 3.425 12.48 1.815 11.998 0c-.48 1.815-2.09 3.425-3.778 5.113-2.534 2.53-5.405 5.4-5.405 9.702a9.184 9.185 0 1018.368 0c0-4.303-2.871-7.171-5.405-9.702M6.72 16.954c-.563-.019-2.64-3.6 1.215-7.416l2.55 2.788a.218.218 0 01-.016.325c-.61.625-3.204 3.227-3.527 4.126-.066.186-.164.18-.222.177M12 21.677a3.158 3.158 0 01-3.158-3.159 3.291 3.291 0 01.787-2.087c.57-.696 2.37-2.655 2.37-2.655s1.774 1.988 2.367 2.649a3.09 3.09 0 01.792 2.093A3.158 3.158 0 0112 21.677m6.046-5.123c-.068.15-.223.398-.431.405-.371.014-.411-.177-.686-.583-.604-.892-5.864-6.39-6.848-7.455-.866-.935-.122-1.595.223-1.94C10.736 6.547 12 5.285 12 5.285s3.766 3.574 5.336 6.016c1.57 2.443 1.029 4.556.71 5.253"></path></svg>
+      <h2>Drupal Website Maintenance</h2>
+      <p>Drupal websites often require more specialized maintenance because updates may involve Drupal core, contributed modules, custom modules, themes, permissions, caching, server compatibility, and complex content structures.</p>
+      <p>Larger or highly customized Drupal websites will typically require more monthly hours because they have more components, dependencies, and potential issues to review and resolve.</p>
+    </div>
+  </div>
+
+</section>
+
+<section class="band" style="padding-top:0;">
+  <div class="wrap">
+    <div class="rebuild-inline">
+      <h3>When Maintenance Is Not Enough</h3>
+      <p>Some older websites have outdated code, incompatible components, broken templates, or years of accumulated problems. In certain cases, repairing everything would cost more than rebuilding the website correctly. When that happens, we will recommend the most practical path: continued maintenance, a larger cleanup project, or a new website.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="band band--tint-b">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Website Maintenance FAQs</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>What Does Website Maintenance Include?<span class="fx"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1266b5" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <div class="faq-body"><p>Security &amp; Updates Only covers essential WordPress or Drupal security updates and critical patches. Standard and Pro plans also include quarterly website health audits and monthly time for issue resolution, performance and stability problems, mobile issues, and other website repairs.</p></div>
+      </details>
+      <details>
+        <summary>What Is Included in a Quarterly Website Health Audit?<span class="fx"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1266b5" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <div class="faq-body"><p>The audit identifies errors, performance concerns, mobile issues, broken functionality, and other problems that may have developed. Findings are prioritized, and resolution work uses the monthly hours included in the plan.</p></div>
+      </details>
+      <details>
+        <summary>Why Does My Website Have So Many Reported Issues?<span class="fx"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1266b5" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <div class="faq-body"><p>Websites accumulate issues as software, pages, integrations, and technology change. Audit tools may also count the same recurring problem on every affected page, quickly producing hundreds or thousands of reported issues.</p></div>
+      </details>
+      <details>
+        <summary>Do You Fix Every Issue Found in an Audit?<span class="fx"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1266b5" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <div class="faq-body"><p>We address the issues that matter most first, based on their effect on security, speed, stability, functionality, conversions, and user experience. Larger issue volumes are resolved over time based on the monthly hours included in the plan.</p></div>
+      </details>
+      <details>
+        <summary>How Many Monthly Maintenance Hours Can I Choose?<span class="fx"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1266b5" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <div class="faq-body"><p>Standard Website Maintenance includes two hours per month. Pro Website Maintenance allows you to choose 3–50+ hours per month—or as much time as your website needs.</p></div>
+      </details>
+      <details>
+        <summary>Are Hosting, Backups, and Uptime Monitoring Included?<span class="fx"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1266b5" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <div class="faq-body"><p>Hosting, server-level backups, and uptime monitoring are part of the website’s hosting service and are not listed as maintenance-plan features.</p></div>
+      </details>
+      <details>
+        <summary>Is Technical SEO Included?<span class="fx"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1266b5" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></span></summary>
+        <div class="faq-body"><p>Technical SEO strategy, indexing, schema, internal linking, content optimization, and AI search optimization are handled through our separate <a href="/seo-aio-services/">SEO + AIO services</a>.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING ============ -->
+<section class="band band--cta final" id="contact">
+  <div class="wrap">
+    <div class="close-inner">
+      <h2>Keep Your Website Protected and Working Properly</h2>
+      <p>Website problems rarely fix themselves. Left unresolved, they can affect security, speed, functionality, user experience, and the overall value of your website.</p>
+      <p>ImageWorks Creative provides WordPress and Drupal Website Maintenance Plans built around what your website actually needs—from essential security updates to ongoing resolution of complex website issues.</p>
+      <div class="cta-row">
+        <a href="#" class="btn btn--solid">Get a Maintenance Recommendation
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+</main>
+
+<!-- ============ PIE ============ -->
+<footer class="site-footer">
+  <div class="foot-grid">
+
+    <div>
+      <img class="foot-logo" src="assets/footer-logo.png" alt="ImageWorks Creative">
+
+      <div class="foot-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#80c34a" stroke-width="2.4" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ashburn, VA Location</div>
+      <div class="foot-detail">44679 Endicott Dr Suite 300<br>Unit 580 | Ashburn, VA 20147</div>
+
+      <div class="foot-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#80c34a" stroke-width="2.4" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>St. Petersburg, FL Location</div>
+      <div class="foot-detail">433 Central Ave<br>4th floor | St. Petersburg, FL 33701</div>
+
+      <div class="foot-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#80c34a" stroke-width="2.4" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Questions? Quote?</div>
+      <div class="foot-detail">Call or text us: <a href="tel:+17039287309">(703) 928-7309</a></div>
+
+      <div class="foot-social">
+        <a href="/" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z"/></svg></a>
+        <a href="/" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.22-6.82-5.97 6.82H1.66l7.73-8.84L1.24 2.25H8.08l4.71 6.23 5.45-6.23Zm-1.16 17.52h1.83L7.01 4.13H5.04l12.04 15.64Z"/></svg></a>
+        <a href="/" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg></a>
+        <a href="/" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16ZM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.12 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.12.66.66 1.33 1.08 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.12-1.38.66-.66 1.08-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.12A5.92 5.92 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0Zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.41-10.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="foot-menus">
+      <div>
+        <div class="foot-head">Services</div>
+        <div class="foot-list">
+          <a class="iw-link" href="/">Web Design</a>
+          <a class="iw-link" href="/">Digital Marketing</a>
+          <a class="iw-link" href="/">Branding</a>
+          <a class="iw-link" href="#plans">Website &amp; Marketing Plans</a>
+          <a class="iw-link" href="#top">Website Maintenance</a>
+          <a class="iw-link" href="/">Content Writing</a>
+          <a class="iw-link" href="/">Google Maps Optimization</a>
+          <a class="iw-link" href="/seo-aio-services/">SEO + AIO Optimization</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-head">Company</div>
+        <div class="foot-list">
+          <a class="iw-link" href="/">Our Work</a>
+          <a class="iw-link" href="/">About</a>
+          <a class="iw-link" href="/">Awards</a>
+          <a class="iw-link" href="/">Testimonials</a>
+          <a class="iw-link" href="#contact">Contact</a>
+        </div>
+        <div class="foot-head">Platform Expertise</div>
+        <div class="foot-list">
+          <a class="iw-link" href="/">Drupal</a>
+          <a class="iw-link" href="/">WordPress</a>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="foot-map"><img src="assets/footer-map.png" alt="Map of ImageWorks Creative locations"></div>
+      <div class="foot-news-title">Subscribe to Our Newsletter</div>
+      <div class="foot-news-sub">Marketing insights &amp; company news sent straight to your inbox</div>
+      <form class="foot-form" onsubmit="return false">
+        <label class="sr-only" for="foot-email">Email Address</label>
+        <input id="foot-email" type="email" placeholder="Email Address">
+        <button type="submit" aria-label="Subscribe">→</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="foot-base">
+    © 2026 ImageWorks Creative, a full-service marketing company, branding firm, and web design agency since 1997. All rights reserved.
+    <div class="foot-base-links"><a class="iw-link" href="/">Sitemap</a> &nbsp;|&nbsp; <a class="iw-link" href="/">Privacy Policy</a></div>
+  </div>
+  <div class="foot-tail"></div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var root = document.documentElement;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ------------------------------------------------------------------
+     Entradas. Se ejecutan una sola vez por elemento, y solo si el
+     navegador soporta IntersectionObserver y el visitante no ha pedido
+     movimiento reducido.
+     ------------------------------------------------------------------ */
+  function setupReveals() {
+    /* Las clases se ponen desde aquí: si el script no corre, no hay nada
+       oculto que revelar. */
+    var selectors = [
+      '.ww-copy > *', '.audit-fig',
+      '.section-head > *', '.plan-shell', '.plan-card',
+      '.table-notes', '.plans-cta',
+      '.host-copy > *', '.host-tier',
+      '.plat-half', '.rebuild-inline',
+      '.faq details', '.close-inner > *'
+    ];
+    var targets = document.querySelectorAll(selectors.join(','));
+    if (!targets.length) return;
+
+    var groups = {};
+    Array.prototype.forEach.call(targets, function (el) {
+      el.classList.add('reveal');
+      var key = el.parentNode.className || 'root';
+      groups[key] = (groups[key] || 0) + 1;
+      el.style.setProperty('--reveal-delay', Math.min((groups[key] - 1) * 80, 320) + 'ms');
+    });
+
+    if (reduced.matches || !('IntersectionObserver' in window)) {
+      Array.prototype.forEach.call(targets, function (el) { el.classList.add('is-revealed'); });
+      root.setAttribute('data-anim', 'on');
+      return;
+    }
+
+    root.setAttribute('data-anim', 'on');
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-revealed');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+
+    Array.prototype.forEach.call(targets, function (el) { io.observe(el); });
+
+    /* El rootMargin negativo dejaría sin disparar lo que quede en la última
+       franja de una página desplazada del todo. Al llegar abajo, se revela
+       lo que siga esperando. */
+    function revealRemainder() {
+      var atBottom = window.innerHeight + window.scrollY >=
+                     document.documentElement.scrollHeight - 2;
+      if (!atBottom) return;
+      Array.prototype.forEach.call(targets, function (el) {
+        if (el.classList.contains('is-revealed')) return;
+        el.classList.add('is-revealed');
+        io.unobserve(el);
+      });
+      window.removeEventListener('scroll', revealRemainder);
+    }
+    window.addEventListener('scroll', revealRemainder, { passive: true });
+  }
+
+  /* ------------------------------------------------------------------
+     La barra: sombra al quedarse pegada, y el panel de la hamburguesa.
+     ------------------------------------------------------------------ */
+  function setupHeader() {
+    var header = document.querySelector('.site-header');
+    if (!header) return;
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      header.setAttribute('data-stuck', window.scrollY > 12 ? 'true' : 'false');
+    }
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }, { passive: true });
+    update();
+
+    var toggle = header.querySelector('.nav-toggle');
+    var links = header.querySelector('.nav-links');
+    if (!toggle || !links) return;
+
+    function setOpen(open) {
+      header.classList.toggle('nav-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', function (event) {
+      event.stopPropagation();
+      setOpen(!header.classList.contains('nav-open'));
+    });
+    links.addEventListener('click', function (event) {
+      if (event.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('click', function (event) {
+      if (header.classList.contains('nav-open') && !header.contains(event.target)) setOpen(false);
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') setOpen(false);
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 1024) setOpen(false);
+    }, { passive: true });
+  }
+
+  /* ------------------------------------------------------------------
+     Los desplegables. Apuntar a un elemento de primer nivel lo abre y
+     cierra los demás; al salir se espera un momento, para que cruzar el
+     hueco entre el botón y el panel no lo cierre. El botón responde
+     también a click y a focus, así el recorrido funciona con teclado.
+
+     Bajo el punto de corte los paneles quedan desplegados por CSS y los
+     botones se dejan en paz: no hay nada que abrir.
+     ------------------------------------------------------------------ */
+  function setupMenu() {
+    var items = Array.prototype.slice.call(
+      document.querySelectorAll('.menu__item[data-menu]')
+    );
+    if (!items.length) return;
+
+    var stacked = window.matchMedia('(max-width: 1024px)');
+    var timer = null;
+
+    function closeAll() {
+      items.forEach(function (item) {
+        item.classList.remove('is-open');
+        var btn = item.querySelector('.menu__link');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    items.forEach(function (item) {
+      var btn = item.querySelector('.menu__link');
+      if (!btn) return;
+
+      function open() {
+        if (stacked.matches) return;
+        window.clearTimeout(timer);
+        closeAll();
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+
+      item.addEventListener('pointerenter', open, { passive: true });
+      item.addEventListener('pointerleave', function () {
+        if (stacked.matches) return;
+        window.clearTimeout(timer);
+        timer = window.setTimeout(closeAll, 140);
+      }, { passive: true });
+
+      btn.addEventListener('focus', open);
+      btn.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (stacked.matches) return;
+        if (item.classList.contains('is-open')) closeAll(); else open();
+      });
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!event.target.closest('.menu__item')) closeAll();
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeAll();
+    });
+    stacked.addEventListener('change', closeAll);
+  }
+
+  setupReveals();
+  setupHeader();
+  setupMenu();
+})();
+</script>
+</body>
+</html>
