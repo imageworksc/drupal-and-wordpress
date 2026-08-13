@@ -1002,12 +1002,20 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
 }
 .close-inner h2{max-width:22ch;}
 /* Medida más ancha que el resto de la página: centradas y a 66ch estas dos
-   quedaban en cuatro y cinco líneas cortas bajo un titular mucho más ancho. */
+   quedaban en cuatro y cinco líneas cortas bajo un titular mucho más ancho.
+   Sin `balance`: equilibrar las líneas encoge cada párrafo a un ancho distinto
+   según su longitud, y son justo los dos anchos que tienen que coincidir. Con
+   una medida fija los dos llenan la misma caja y caen en dos líneas cada uno. */
 .close-inner p{
   font-size:var(--step-1);line-height:1.7;
   color:rgba(226,238,252,.82);
-  max-width:86ch;
-  text-wrap:balance;
+  width:100%;
+  /* 940px es donde las dos primeras líneas caen ya casi llenas por sí solas
+     (~905px), así que justificar apenas las estira y no se abren los espacios */
+  max-width:940px;
+  text-align:justify;
+  text-align-last:center;
+  text-wrap:wrap;
 }
 .final .cta-row{margin-top:14px;justify-content:center;}
 
@@ -1154,6 +1162,9 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
   }
   .band--cta .btn--solid{min-height:58px;padding-inline:22px;}
   .hero .btn{width:auto;}
+  /* con ~38 caracteres por línea la justificación abre ríos entre palabras, y
+     a este ancho los dos párrafos ya llenan la caja por igual sin ayuda */
+  .close-inner p{text-align:center;}
   .host-tiers{grid-template-columns:1fr;}
   .faq summary{font-size:16.5px;padding:20px 4px;}
   .faq details[open] summary{padding-inline:18px;}
