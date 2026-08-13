@@ -777,31 +777,11 @@ table.plans thead th.corner .pp-wrap{justify-content:center;position:relative;}
 @keyframes cpnudge{0%,100%{transform:translateX(0);}50%{transform:translateX(5px);}}
 
 table.plans thead th.plan-panel{position:relative;background:#fff;width:26%;}
-/* La etiqueta sale del flujo y se ancla al borde superior de su columna. Antes
-   empujaba hacia abajo el icono y el título, y como solo dos de las tres
-   columnas la llevan, nada quedaba a la misma altura. El hueco que necesita se
-   reserva en las tres por igual con el relleno de arriba. */
-table.plans thead .pop{
-  position:absolute;
-  top:16px;left:50%;
-  transform:translateX(-50%);
-  margin-bottom:0;
-  white-space:nowrap;
-}
-table.plans thead th.plan-panel .pp-wrap{padding-top:54px;}
+/* La columna recomendada ya no lleva etiqueta: la señala el remate verde. */
 table.plans thead th.pp-std{
   background:linear-gradient(180deg,#f7fbf0,#fff);
   box-shadow:inset 0 3px 0 0 var(--green);
 }
-.pop{
-  display:inline-block;
-  font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
-  padding:5px 12px;
-  border-radius:var(--r);
-  background:var(--tint-green);color:var(--green-ink);
-  margin-bottom:12px;
-}
-.pop-pro{background:var(--tint-blue);color:var(--blue);}
 .pp-name{font-size:17px;font-weight:800;color:var(--navy);letter-spacing:-.018em;line-height:1.25;}
 .pp-tag{font-size:12.5px;font-weight:500;color:var(--muted);line-height:1.4;margin-top:6px;}
 .pp-hours{margin-top:16px;margin-bottom:4px;display:flex;flex-direction:column;align-items:center;}
@@ -1608,7 +1588,6 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
             </th>
             <th scope="col" class="plan-panel pp-std">
               <div class="pp-wrap">
-                <span class="pop">Most Popular</span>
                 <svg class="pp-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5l2.5 5.2 5.7.7-4.2 3.9 1.1 5.6L12 16.2l-5.1 2.7 1.1-5.6-4.2-3.9 5.7-.7L12 3.5z" stroke="#143c66" stroke-width="1.6" stroke-linejoin="round"></path></svg>
                 <div class="pp-name">Standard Website Maintenance</div>
                 <div class="pp-hours">
@@ -1620,7 +1599,6 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
             </th>
             <th scope="col" class="plan-panel">
               <div class="pp-wrap">
-                <span class="pop pop-pro">Best for Drupal Sites</span>
                 <svg class="pp-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4h10l4 5.5L12 20.5 3 9.5 7 4z" stroke="#143c66" stroke-width="1.6" stroke-linejoin="round"></path><path d="M3 9.5h18M9.5 4L8 9.5l4 11 4-11-1.5-5.5" stroke="#143c66" stroke-width="1.1" stroke-linejoin="round"></path></svg>
                 <div class="pp-name">Pro Website Maintenance</div>
                 <div class="pp-hours">
@@ -1718,7 +1696,6 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
 
       <div class="plan-card pc-std">
         <div class="pc-head">
-          <div class="pop">Most Popular</div>
           <div class="pc-name">Standard Website Maintenance</div>
           <div class="pc-tag">Regular issue resolution</div>
           <div class="pc-hours"><span class="pp-num">2 hours</span><span class="pp-per">per month</span><span class="pp-sub">for issue resolution</span></div>
@@ -1735,7 +1712,6 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
 
       <div class="plan-card">
         <div class="pc-head">
-          <span class="pop pop-pro">Best for Drupal Sites</span>
           <div class="pc-name">Pro Website Maintenance</div>
           <div class="pc-tag">Extensive ongoing issue resolution</div>
           <div class="pc-hours"><span class="pp-num">3–50+ hours</span><span class="pp-per">per month</span><span class="pp-sub">based on issue-resolution needs</span></div>
