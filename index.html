@@ -740,8 +740,12 @@ table{border-collapse:separate;border-spacing:0;}
 }
 table.plans{width:100%;background:transparent;font-size:14.5px;}
 
+/* Aquí había un `height:1px` en el th con `height:100%` en el envoltorio: un
+   truco de Chromium para estirar el envoltorio y alinear abajo unos botones que
+   ya no viven en la cabecera. Firefox resuelve ese 100% contra el 1px real, así
+   que la fila se quedaba en 30px y su contenido se derramaba sobre la tabla.
+   Las celdas de una misma fila ya comparten altura sin ayuda. */
 table.plans thead th{
-  height:1px;                    /* habilita el height:100% del envoltorio */
   vertical-align:top;
   border-right:1px solid var(--border);
   border-bottom:2px solid var(--navy);
@@ -749,12 +753,10 @@ table.plans thead th{
 }
 table.plans thead th:last-child{border-right:none;}
 .pp-wrap{
-  height:100%;
   display:flex;flex-direction:column;align-items:center;
   text-align:center;
   padding:26px 18px 22px;
 }
-.pp-wrap .pbtn{margin-top:auto;}
 
 /* la celda esquinera toma el campo azul profundo de la marca */
 table.plans thead th.corner{
@@ -899,15 +901,19 @@ table.plans tbody td:hover .ck{transform:scale(1.18);}
 [data-anim="on"] .plan-shell tbody tr:nth-child(9){transition-delay:.58s;}
 [data-anim="on"] .plan-shell tbody tr:nth-child(10){transition-delay:.64s;}
 
-/* las cabeceras de plan suben primero, cada una tras la anterior */
-[data-anim="on"] .plan-shell .pp-wrap{
-  opacity:0;transform:translateY(12px);
+/* Las cabeceras de plan suben primero, cada una tras la anterior.
+   La animación va en los HIJOS, nunca en .pp-wrap: ese lleva height:100%
+   dentro de un th con height:1px —el truco que iguala las tres columnas— y un
+   transform hace que ese 100% se resuelva contra 1px, con lo que la fila se
+   colapsa y su contenido se derrama sobre la tabla mientras dura la entrada. */
+[data-anim="on"] .plan-shell .pp-wrap > *{
+  opacity:0;transform:translateY(10px);
   transition:opacity .6s var(--ease), transform .6s var(--ease);
 }
-[data-anim="on"] .plan-shell.is-revealed .pp-wrap{opacity:1;transform:none;}
-[data-anim="on"] .plan-shell thead th:nth-child(2) .pp-wrap{transition-delay:.06s;}
-[data-anim="on"] .plan-shell thead th:nth-child(3) .pp-wrap{transition-delay:.12s;}
-[data-anim="on"] .plan-shell thead th:nth-child(4) .pp-wrap{transition-delay:.18s;}
+[data-anim="on"] .plan-shell.is-revealed .pp-wrap > *{opacity:1;transform:none;}
+[data-anim="on"] .plan-shell thead th:nth-child(2) .pp-wrap > *{transition-delay:.06s;}
+[data-anim="on"] .plan-shell thead th:nth-child(3) .pp-wrap > *{transition-delay:.12s;}
+[data-anim="on"] .plan-shell thead th:nth-child(4) .pp-wrap > *{transition-delay:.18s;}
 
 /* las marcas de verificación aparecen con un pequeño rebote tras su fila */
 [data-anim="on"] .plan-shell .ck{
