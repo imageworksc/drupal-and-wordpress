@@ -776,7 +776,19 @@ table.plans thead th.corner .pp-wrap{justify-content:center;position:relative;}
 .cp-arrow{margin-top:16px;display:inline-flex;animation:cpnudge 1.6s ease-in-out infinite;}
 @keyframes cpnudge{0%,100%{transform:translateX(0);}50%{transform:translateX(5px);}}
 
-table.plans thead th.plan-panel{background:#fff;width:26%;}
+table.plans thead th.plan-panel{position:relative;background:#fff;width:26%;}
+/* La etiqueta sale del flujo y se ancla al borde superior de su columna. Antes
+   empujaba hacia abajo el icono y el título, y como solo dos de las tres
+   columnas la llevan, nada quedaba a la misma altura. El hueco que necesita se
+   reserva en las tres por igual con el relleno de arriba. */
+table.plans thead .pop{
+  position:absolute;
+  top:16px;left:50%;
+  transform:translateX(-50%);
+  margin-bottom:0;
+  white-space:nowrap;
+}
+table.plans thead th.plan-panel .pp-wrap{padding-top:54px;}
 table.plans thead th.pp-std{
   background:linear-gradient(180deg,#f7fbf0,#fff);
   box-shadow:inset 0 3px 0 0 var(--green);
