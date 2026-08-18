@@ -1108,7 +1108,10 @@ table.plans tr.grp-row th::before{display:none;}
   width:100%;
   max-width:var(--shell);
   margin-inline:auto;
-  padding:var(--band-y) var(--gutter) 0;
+  /* Relleno arriba y abajo: antes el inferior era 0 porque debajo venía el
+     bloque "When Maintenance Is Not Enough", que ya no existe, y las tarjetas
+     quedaban pegadas a la banda siguiente. */
+  padding:var(--band-y) var(--gutter);
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:20px;
@@ -1219,26 +1222,15 @@ table.plans tr.grp-row th::before{display:none;}
   display:flex;flex-direction:column;align-items:center;gap:18px;
 }
 .close-inner h2{max-width:22ch;}
-/* Medida más ancha que el resto de la página: centradas y a 66ch estas dos
-   quedaban en cuatro y cinco líneas cortas bajo un titular mucho más ancho.
-   Sin `balance`: equilibrar las líneas encoge cada párrafo a un ancho distinto
-   según su longitud, y son justo los dos anchos que tienen que coincidir. Con
-   una medida fija los dos llenan la misma caja y caen en dos líneas cada uno. */
+/* Centradas, sin justificar: los espacios entre palabras quedan todos iguales
+   y el borde derecho, dentado. Medida amplia porque el titular es muy ancho y
+   a la medida general estos dos párrafos caían en muchas líneas cortas. */
 .close-inner p{
   font-size:var(--step-1);line-height:1.7;
   color:rgba(226,238,252,.82);
   width:100%;
-  /* Medido: la 1ª línea nace en 1004px (P1) y 1021px (P2), así que a 1030 la
-     justificación solo rellena 26px y 9px. Es el ancho de todo el rango donde
-     ambos caen en dos líneas con menos hueco que repartir; a 940 el segundo
-     párrafo tenía que estirar 60px y ahí sí se abrían los espacios. */
   max-width:1030px;
-  text-wrap:wrap;
-}
-/* Justificar solo cuando la caja llega a su tope. Por debajo el ancho lo manda
-   el contenedor, la línea natural queda muy corta y el estirón se vería. */
-@media (min-width:1120px){
-  .close-inner p{text-align:justify;text-align-last:center;}
+  text-wrap:pretty;
 }
 .final .cta-row{margin-top:14px;justify-content:center;}
 
@@ -1440,9 +1432,6 @@ table.plans tr.grp-row th::before{display:none;}
   }
   .band--cta .btn--solid{min-height:58px;padding-inline:22px;}
   .hero .btn{width:auto;}
-  /* con ~38 caracteres por línea la justificación abre ríos entre palabras, y
-     a este ancho los dos párrafos ya llenan la caja por igual sin ayuda */
-  .close-inner p{text-align:center;}
   .host-tiers{grid-template-columns:1fr;}
   .faq summary{font-size:16.5px;padding:20px 4px;}
   .faq details[open] summary{padding-inline:18px;}
