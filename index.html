@@ -475,27 +475,34 @@ table{border-collapse:separate;border-spacing:0;}
   mask-image:linear-gradient(180deg,#000 0,#000 330px,transparent 600px);
   -webkit-mask-image:linear-gradient(180deg,#000 0,#000 330px,transparent 600px);
 }
-/* Los tres lavados originales: grandes, de recorrido amplio y libres de
-   cruzarse. Se solapan a propósito; es el efecto buscado. */
-.hero-wash span{position:absolute;left:50%;will-change:transform;}
+/* Tres lavados que no se cruzan nunca.
+   Los originales medían 780+840+900px: 2520px sobre una ventana de 1440, el
+   175% del ancho, así que se solapaban ya en reposo. Para que no se toquen,
+   lo único que tiene que ceder es el ANCHO: cada uno ocupa el 26% y se queda
+   en su tercio, con un 8% de aire respecto al vecino.
+   Todo lo demás se conserva tal cual estaba: las alturas originales (640, 700
+   y 660px), el degradado que se desvanece hasta el borde de la caja, las tres
+   duraciones y el recorrido vertical completo. Solo el vaivén horizontal está
+   acotado, a 43px, que es lo que cabe sin invadir la franja de al lado. */
+.hero-wash span{position:absolute;will-change:transform;}
 /* verde: abre arriba a la izquierda sobre el titular, baja hacia la derecha */
 .hero-wash__g{
-  inline-size:780px;block-size:640px;
-  margin-left:-870px;top:-220px;
+  left:3%;width:26%;
+  block-size:640px;top:-220px;
   background:radial-gradient(closest-side ellipse at center, rgba(128,195,74,.24), rgba(128,195,74,0) 100%);
   animation:washG 71s linear infinite;
 }
 /* azul de marca: abre arriba a la derecha y corre al revés */
 .hero-wash__b{
-  inline-size:840px;block-size:700px;
-  margin-left:50px;top:-190px;
+  left:71%;width:26%;
+  block-size:700px;top:-190px;
   background:radial-gradient(closest-side ellipse at center, rgba(18,102,181,.21), rgba(18,102,181,0) 100%);
   animation:washB 97s linear infinite;
 }
-/* cielo: el bajo, aparcado bajo la llamada a la acción. El más lento y ancho */
+/* cielo: el del medio, el más lento */
 .hero-wash__s{
-  inline-size:900px;block-size:660px;
-  margin-left:-410px;top:300px;
+  left:37%;width:26%;
+  block-size:660px;top:-140px;
   background:radial-gradient(closest-side ellipse at center, rgba(46,140,214,.21), rgba(46,140,214,0) 100%);
   animation:washS 127s linear infinite;
 }
@@ -509,25 +516,29 @@ table{border-collapse:separate;border-spacing:0;}
   background-size:260% 100%;
   animation:heroSheen 47s ease-in-out infinite;
 }
+/* Eje Y: los valores originales, intactos. Al no cruzarse en horizontal, subir
+   y bajar no puede provocar solape.
+   Eje X: el mismo dibujo del recorrido original, reescalado para que la mancha
+   no salga de su tercio (de 64/70/58% de su ancho a 11%). */
 @keyframes washG{
   0%{transform:translate3d(0,0,0);}
-  25%{transform:translate3d(38%,22%,0);}
-  50%{transform:translate3d(64%,6%,0);}
-  75%{transform:translate3d(26%,-14%,0);}
+  25%{transform:translate3d(6.5%,22%,0);}
+  50%{transform:translate3d(11%,6%,0);}
+  75%{transform:translate3d(4.5%,-14%,0);}
   100%{transform:translate3d(0,0,0);}
 }
 @keyframes washB{
   0%{transform:translate3d(0,0,0);}
-  25%{transform:translate3d(-42%,26%,0);}
-  50%{transform:translate3d(-70%,-8%,0);}
-  75%{transform:translate3d(-30%,-24%,0);}
+  25%{transform:translate3d(-6.6%,26%,0);}
+  50%{transform:translate3d(-11%,-8%,0);}
+  75%{transform:translate3d(-4.7%,-24%,0);}
   100%{transform:translate3d(0,0,0);}
 }
 @keyframes washS{
   0%{transform:translate3d(0,0,0);}
-  25%{transform:translate3d(-34%,-18%,0);}
-  50%{transform:translate3d(-58%,10%,0);}
-  75%{transform:translate3d(-18%,20%,0);}
+  25%{transform:translate3d(-6.5%,-18%,0);}
+  50%{transform:translate3d(-11%,10%,0);}
+  75%{transform:translate3d(-3.4%,20%,0);}
   100%{transform:translate3d(0,0,0);}
 }
 @keyframes heroSheen{
