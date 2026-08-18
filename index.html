@@ -606,7 +606,10 @@ table{border-collapse:separate;border-spacing:0;}
 }
 .ww-copy{display:flex;flex-direction:column;align-items:flex-start;gap:20px;}
 .ww-copy h2{max-width:20ch;}
-.ww-copy p{font-size:var(--step-1);line-height:1.7;color:var(--muted);max-width:var(--measure);}
+/* Medida propia, más corta que la columna (~518px): a 470px los dos párrafos
+   conservan sus 4 y 3 líneas, pero la última del primero pasa de quedarse a
+   media caja a llenarla al 95%. El texto no cambia, solo dónde rompe. */
+.ww-copy p{font-size:var(--step-1);line-height:1.7;color:var(--muted);max-width:470px;}
 
 /* La cita es lo único de la página puesto en tipo y nada más, así que se gana
    su peso con una regla verde y el fondo de la tarjeta. */
