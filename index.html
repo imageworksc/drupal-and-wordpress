@@ -475,27 +475,33 @@ table{border-collapse:separate;border-spacing:0;}
   mask-image:linear-gradient(180deg,#000 0,#000 330px,transparent 600px);
   -webkit-mask-image:linear-gradient(180deg,#000 0,#000 330px,transparent 600px);
 }
-.hero-wash span{position:absolute;left:50%;will-change:transform;}
-/* verde: abre arriba a la izquierda sobre el titular, baja hacia la derecha */
+/* Cada lavado ocupa su propia franja vertical y las tres franjas no se tocan:
+   verde a la izquierda (-8%..26%), cielo en medio (36%..64%) y azul a la
+   derecha (74%..108%), con 10% de aire entre una y la siguiente. Mientras no
+   se crucen en horizontal no hay mezcla posible, y por eso el recorrido
+   vertical puede seguir siendo tan amplio como antes: solo el desplazamiento
+   en X está acotado, a un tercio del hueco que las separa. */
+.hero-wash span{position:absolute;will-change:transform;}
+/* verde: abre arriba a la izquierda, sobre el titular */
 .hero-wash__g{
-  inline-size:780px;block-size:640px;
-  margin-left:-870px;top:-220px;
+  left:-8%;width:34%;
+  block-size:560px;top:-190px;
   background:radial-gradient(closest-side ellipse at center, rgba(128,195,74,.24), rgba(128,195,74,0) 100%);
   animation:washG 71s linear infinite;
 }
-/* azul de marca: abre arriba a la derecha y corre al revés */
-.hero-wash__b{
-  inline-size:840px;block-size:700px;
-  margin-left:50px;top:-190px;
-  background:radial-gradient(closest-side ellipse at center, rgba(18,102,181,.21), rgba(18,102,181,0) 100%);
-  animation:washB 97s linear infinite;
-}
-/* cielo: el bajo, aparcado bajo la llamada a la acción. El más lento y ancho */
+/* cielo: la franja central, la más lenta */
 .hero-wash__s{
-  inline-size:900px;block-size:660px;
-  margin-left:-410px;top:300px;
+  left:36%;width:28%;
+  block-size:500px;top:-120px;
   background:radial-gradient(closest-side ellipse at center, rgba(46,140,214,.21), rgba(46,140,214,0) 100%);
   animation:washS 127s linear infinite;
+}
+/* azul de marca: abre arriba a la derecha y corre al revés */
+.hero-wash__b{
+  right:-8%;width:34%;
+  block-size:560px;top:-170px;
+  background:radial-gradient(closest-side ellipse at center, rgba(18,102,181,.21), rgba(18,102,181,0) 100%);
+  animation:washB 97s linear infinite;
 }
 /* un brillo cruzando la superficie, como se mueve la luz sobre una */
 .hero-wash::after{
@@ -507,25 +513,27 @@ table{border-collapse:separate;border-spacing:0;}
   background-size:260% 100%;
   animation:heroSheen 47s ease-in-out infinite;
 }
+/* Recorrido vertical intacto; el horizontal baja a un tercio del hueco que
+   separa cada franja de la siguiente, que es lo que evita que se toquen. */
 @keyframes washG{
   0%{transform:translate3d(0,0,0);}
-  25%{transform:translate3d(38%,22%,0);}
-  50%{transform:translate3d(64%,6%,0);}
-  75%{transform:translate3d(26%,-14%,0);}
+  25%{transform:translate3d(7%,22%,0);}
+  50%{transform:translate3d(11%,6%,0);}
+  75%{transform:translate3d(5%,-14%,0);}
   100%{transform:translate3d(0,0,0);}
 }
 @keyframes washB{
   0%{transform:translate3d(0,0,0);}
-  25%{transform:translate3d(-42%,26%,0);}
-  50%{transform:translate3d(-70%,-8%,0);}
-  75%{transform:translate3d(-30%,-24%,0);}
+  25%{transform:translate3d(-7%,26%,0);}
+  50%{transform:translate3d(-12%,-8%,0);}
+  75%{transform:translate3d(-5%,-24%,0);}
   100%{transform:translate3d(0,0,0);}
 }
 @keyframes washS{
   0%{transform:translate3d(0,0,0);}
-  25%{transform:translate3d(-34%,-18%,0);}
-  50%{transform:translate3d(-58%,10%,0);}
-  75%{transform:translate3d(-18%,20%,0);}
+  25%{transform:translate3d(-6%,-18%,0);}
+  50%{transform:translate3d(-10%,10%,0);}
+  75%{transform:translate3d(-3%,20%,0);}
   100%{transform:translate3d(0,0,0);}
 }
 @keyframes heroSheen{
@@ -544,13 +552,15 @@ table{border-collapse:separate;border-spacing:0;}
   text-wrap:balance;
 }
 /* la frase de apoyo es el acento verde del sistema, no un segundo titular */
+/* En una sola línea: a 23px el texto mide 592px, así que entra con holgura.
+   El `max-width` de 34ch era lo que lo partía en dos. */
 .hero .subhead{
   font-size:clamp(18px,.9vw + 15px,23px);
   font-weight:800;
   line-height:1.25;
   letter-spacing:-.018em;
   color:var(--green-ink);
-  max-width:34ch;
+  white-space:nowrap;
 }
 .hero p.body{
   font-size:clamp(16.5px,.55vw + 15px,18.5px);
@@ -1405,6 +1415,11 @@ table.plans tr.grp-row th::before{display:none;}
     font-size:13.5px;line-height:1.55;color:var(--muted);
   }
   .pc-cta .pbtn{margin-top:0;width:100%;}
+}
+/* Por debajo de 640px el texto ya no cabe de una pieza a un cuerpo legible,
+   así que ahí se le devuelve el salto de línea. */
+@media (max-width:640px){
+  .hero .subhead{white-space:normal;}
 }
 @media (max-width:600px){
   /* a ancho completo el rótulo más largo no cabe en una línea con el relleno
