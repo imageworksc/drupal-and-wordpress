@@ -475,32 +475,30 @@ table{border-collapse:separate;border-spacing:0;}
   mask-image:linear-gradient(180deg,#000 0,#000 330px,transparent 600px);
   -webkit-mask-image:linear-gradient(180deg,#000 0,#000 330px,transparent 600px);
 }
-/* Cada lavado ocupa su propia franja vertical y las tres franjas no se tocan:
-   verde a la izquierda (-8%..26%), cielo en medio (36%..64%) y azul a la
-   derecha (74%..108%), con 10% de aire entre una y la siguiente. Mientras no
-   se crucen en horizontal no hay mezcla posible, y por eso el recorrido
-   vertical puede seguir siendo tan amplio como antes: solo el desplazamiento
-   en X está acotado, a un tercio del hueco que las separa. */
+/* Dos lavados, uno por cada acento de la marca, cada uno en una esquina y con
+   el centro despejado entre ellos. Antes eran tres, pero la paleta solo tiene
+   dos acentos: el tercero volvía a ser azul y, pegado al otro azul, los dos
+   tercios derechos se leían como una sola mancha. Con uno verde y uno azul
+   siempre se distingue cuál es cuál.
+
+   Además el degradado se apaga al 72% del radio en vez de al borde de la caja,
+   así que cada mancha tiene un contorno definido y el hueco entre ambas es
+   blanco de verdad, no la suma de dos colas tenues. */
 .hero-wash span{position:absolute;will-change:transform;}
 /* verde: abre arriba a la izquierda, sobre el titular */
 .hero-wash__g{
-  left:-8%;width:34%;
-  block-size:560px;top:-190px;
-  background:radial-gradient(closest-side ellipse at center, rgba(128,195,74,.24), rgba(128,195,74,0) 100%);
+  left:-10%;width:40%;
+  block-size:580px;top:-190px;
+  background:radial-gradient(closest-side ellipse at center,
+    rgba(128,195,74,.30) 0%, rgba(128,195,74,.13) 42%, rgba(128,195,74,0) 72%);
   animation:washG 71s linear infinite;
-}
-/* cielo: la franja central, la más lenta */
-.hero-wash__s{
-  left:36%;width:28%;
-  block-size:500px;top:-120px;
-  background:radial-gradient(closest-side ellipse at center, rgba(46,140,214,.21), rgba(46,140,214,0) 100%);
-  animation:washS 127s linear infinite;
 }
 /* azul de marca: abre arriba a la derecha y corre al revés */
 .hero-wash__b{
-  right:-8%;width:34%;
-  block-size:560px;top:-170px;
-  background:radial-gradient(closest-side ellipse at center, rgba(18,102,181,.21), rgba(18,102,181,0) 100%);
+  right:-10%;width:40%;
+  block-size:580px;top:-170px;
+  background:radial-gradient(closest-side ellipse at center,
+    rgba(18,102,181,.26) 0%, rgba(18,102,181,.11) 42%, rgba(18,102,181,0) 72%);
   animation:washB 97s linear infinite;
 }
 /* un brillo cruzando la superficie, como se mueve la luz sobre una */
@@ -513,27 +511,20 @@ table{border-collapse:separate;border-spacing:0;}
   background-size:260% 100%;
   animation:heroSheen 47s ease-in-out infinite;
 }
-/* Recorrido vertical intacto; el horizontal baja a un tercio del hueco que
-   separa cada franja de la siguiente, que es lo que evita que se toquen. */
+/* El hueco entre ambas es tan amplio que el recorrido horizontal puede volver
+   a ser generoso sin que lleguen a acercarse. */
 @keyframes washG{
   0%{transform:translate3d(0,0,0);}
-  25%{transform:translate3d(7%,22%,0);}
-  50%{transform:translate3d(11%,6%,0);}
-  75%{transform:translate3d(5%,-14%,0);}
+  25%{transform:translate3d(14%,22%,0);}
+  50%{transform:translate3d(22%,6%,0);}
+  75%{transform:translate3d(10%,-14%,0);}
   100%{transform:translate3d(0,0,0);}
 }
 @keyframes washB{
   0%{transform:translate3d(0,0,0);}
-  25%{transform:translate3d(-7%,26%,0);}
-  50%{transform:translate3d(-12%,-8%,0);}
-  75%{transform:translate3d(-5%,-24%,0);}
-  100%{transform:translate3d(0,0,0);}
-}
-@keyframes washS{
-  0%{transform:translate3d(0,0,0);}
-  25%{transform:translate3d(-6%,-18%,0);}
-  50%{transform:translate3d(-10%,10%,0);}
-  75%{transform:translate3d(-3%,20%,0);}
+  25%{transform:translate3d(-14%,26%,0);}
+  50%{transform:translate3d(-22%,-8%,0);}
+  75%{transform:translate3d(-10%,-24%,0);}
   100%{transform:translate3d(0,0,0);}
 }
 @keyframes heroSheen{
@@ -1561,7 +1552,7 @@ table.plans tr.grp-row th::before{display:none;}
 <main id="main">
 <!-- ============ HERO ============ -->
 <section class="hero" data-hero>
-  <div class="hero-wash" aria-hidden="true"><span class="hero-wash__g"></span><span class="hero-wash__b"></span><span class="hero-wash__s"></span></div>
+  <div class="hero-wash" aria-hidden="true"><span class="hero-wash__g"></span><span class="hero-wash__b"></span></div>
   <div class="wrap hero-inner">
     <div class="hero-main">
       <h1>Website Maintenance Plans for WordPress &amp; Drupal</h1>
