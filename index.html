@@ -598,6 +598,11 @@ table{border-collapse:separate;border-spacing:0;}
 /* --------------------------------------------------------------------------
    QUÉ / POR QUÉ — el argumento, partido en copia y prueba
    -------------------------------------------------------------------------- */
+/* El hero ya cierra con mucho aire y su degradado entra en el tinte de esta
+   banda, así que los 108px de la retícula general dejaban al titular demasiado
+   caído. Aquí el relleno superior es menor; el inferior no cambia. */
+.ww-band{padding-block:clamp(44px,5vw,68px) var(--band-y);}
+
 .ww-grid{
   display:grid;
   grid-template-columns:minmax(0,1fr) minmax(0,1fr);
@@ -1581,7 +1586,7 @@ table.plans tr.grp-row th::before{display:none;}
 </section>
 
 <!-- ============ WHAT / WHY ============ -->
-<section class="band band--tint">
+<section class="band band--tint ww-band">
   <div class="wrap">
     <div class="ww-grid">
       <div class="ww-copy">
