@@ -475,30 +475,38 @@ table{border-collapse:separate;border-spacing:0;}
   mask-image:linear-gradient(180deg,#000 0,#000 330px,transparent 600px);
   -webkit-mask-image:linear-gradient(180deg,#000 0,#000 330px,transparent 600px);
 }
-/* Dos lavados, uno por cada acento de la marca, cada uno en una esquina y con
-   el centro despejado entre ellos. Antes eran tres, pero la paleta solo tiene
-   dos acentos: el tercero volvía a ser azul y, pegado al otro azul, los dos
-   tercios derechos se leían como una sola mancha. Con uno verde y uno azul
-   siempre se distingue cuál es cuál.
-
-   Además el degradado se apaga al 72% del radio en vez de al borde de la caja,
-   así que cada mancha tiene un contorno definido y el hueco entre ambas es
-   blanco de verdad, no la suma de dos colas tenues. */
+/* Tres lavados, cada uno en su tercio y sin tocarse nunca.
+   Los originales medían 780, 840 y 900px sobre 1440: sumaban más del 160% del
+   ancho, así que se solapaban por construcción. Para que tres convivan sin
+   pisarse, cada uno cabe en su tercio (22% de ancho) y descansa con 15% de aire
+   respecto al vecino; el vaivén horizontal se come como mucho 5 de esos 15
+   puntos, de modo que en el peor momento del ciclo quedan ~83px de blanco entre
+   dos manchas. El recorrido vertical no está limitado: como no se cruzan en
+   horizontal, moverse arriba y abajo no puede provocar solape, así que
+   conserva los valores originales. */
 .hero-wash span{position:absolute;will-change:transform;}
 /* verde: abre arriba a la izquierda, sobre el titular */
 .hero-wash__g{
-  left:-10%;width:40%;
-  block-size:580px;top:-190px;
+  left:2%;width:22%;
+  block-size:500px;top:-160px;
   background:radial-gradient(closest-side ellipse at center,
-    rgba(128,195,74,.30) 0%, rgba(128,195,74,.13) 42%, rgba(128,195,74,0) 72%);
+    rgba(128,195,74,.30) 0%, rgba(128,195,74,.13) 45%, rgba(128,195,74,0) 85%);
   animation:washG 71s linear infinite;
+}
+/* cielo: la franja central, la más lenta */
+.hero-wash__s{
+  left:39%;width:22%;
+  block-size:460px;top:-110px;
+  background:radial-gradient(closest-side ellipse at center,
+    rgba(46,140,214,.26) 0%, rgba(46,140,214,.11) 45%, rgba(46,140,214,0) 85%);
+  animation:washS 127s linear infinite;
 }
 /* azul de marca: abre arriba a la derecha y corre al revés */
 .hero-wash__b{
-  right:-10%;width:40%;
-  block-size:580px;top:-170px;
+  left:76%;width:22%;
+  block-size:500px;top:-150px;
   background:radial-gradient(closest-side ellipse at center,
-    rgba(18,102,181,.26) 0%, rgba(18,102,181,.11) 42%, rgba(18,102,181,0) 72%);
+    rgba(18,102,181,.26) 0%, rgba(18,102,181,.11) 45%, rgba(18,102,181,0) 85%);
   animation:washB 97s linear infinite;
 }
 /* un brillo cruzando la superficie, como se mueve la luz sobre una */
@@ -511,19 +519,26 @@ table{border-collapse:separate;border-spacing:0;}
   background-size:260% 100%;
   animation:heroSheen 47s ease-in-out infinite;
 }
-/* El hueco entre ambas es tan amplio que el recorrido horizontal puede volver
-   a ser generoso sin que lleguen a acercarse. */
+/* El eje Y conserva los valores originales: al no cruzarse en horizontal, subir
+   y bajar no puede provocar solape. El eje X es el acotado. */
 @keyframes washG{
   0%{transform:translate3d(0,0,0);}
-  25%{transform:translate3d(14%,22%,0);}
-  50%{transform:translate3d(22%,6%,0);}
-  75%{transform:translate3d(10%,-14%,0);}
+  25%{transform:translate3d(12%,22%,0);}
+  50%{transform:translate3d(23%,6%,0);}
+  75%{transform:translate3d(8%,-14%,0);}
+  100%{transform:translate3d(0,0,0);}
+}
+@keyframes washS{
+  0%{transform:translate3d(0,0,0);}
+  25%{transform:translate3d(-11%,-18%,0);}
+  50%{transform:translate3d(-19%,10%,0);}
+  75%{transform:translate3d(-6%,20%,0);}
   100%{transform:translate3d(0,0,0);}
 }
 @keyframes washB{
   0%{transform:translate3d(0,0,0);}
   25%{transform:translate3d(-14%,26%,0);}
-  50%{transform:translate3d(-22%,-8%,0);}
+  50%{transform:translate3d(-23%,-8%,0);}
   75%{transform:translate3d(-10%,-24%,0);}
   100%{transform:translate3d(0,0,0);}
 }
@@ -1552,7 +1567,7 @@ table.plans tr.grp-row th::before{display:none;}
 <main id="main">
 <!-- ============ HERO ============ -->
 <section class="hero" data-hero>
-  <div class="hero-wash" aria-hidden="true"><span class="hero-wash__g"></span><span class="hero-wash__b"></span></div>
+  <div class="hero-wash" aria-hidden="true"><span class="hero-wash__g"></span><span class="hero-wash__s"></span><span class="hero-wash__b"></span></div>
   <div class="wrap hero-inner">
     <div class="hero-main">
       <h1>Website Maintenance Plans for WordPress &amp; Drupal</h1>
