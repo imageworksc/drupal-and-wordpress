@@ -1106,7 +1106,9 @@ table.plans tr.grp-row th::before{display:none;}
 .ht-name{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);line-height:1.4;}
 .host-tier:nth-child(2) .ht-name{color:var(--green-ink);}
 .ht-price{margin-top:14px;display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;}
-.ht-from{font-size:12.5px;font-weight:600;color:var(--faint);margin-right:4px;}
+/* "starting at" ocupa toda la fila del contenedor flex, así que cae en su
+   propia línea encima del precio en vez de precederlo en la misma. */
+.ht-from{flex-basis:100%;font-size:12.5px;font-weight:600;color:var(--faint);margin-bottom:2px;}
 .ht-num{font-size:clamp(30px,2.4vw,38px);font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.03em;}
 .ht-per{font-size:13px;font-weight:600;color:var(--faint);}
 
