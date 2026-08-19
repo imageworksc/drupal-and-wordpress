@@ -975,7 +975,9 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
 
 /* ---------- filas de grupo dentro de la comparativa ---------- */
 table.plans tr.grp-row th{
-  background:var(--tint-blue);
+  /* un paso hacia el gris respecto a --tint-blue (#e5edf7): baja la saturación
+     de ~7% a ~3% manteniendo el mismo tono frío y la misma claridad */
+  background:#e8ebf0;
   color:var(--navy);
   font-size:12px;font-weight:800;
   letter-spacing:.1em;text-transform:uppercase;
