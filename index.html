@@ -1105,10 +1105,13 @@ table.plans tr.grp-row th::before{display:none;}
 .host-tier:hover{transform:translateY(-6px);box-shadow:0 1px 3px rgba(20,40,80,.12), 0 22px 48px rgba(20,40,80,.16);}
 .ht-name{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);line-height:1.4;}
 .host-tier:nth-child(2) .ht-name{color:var(--green-ink);}
-.ht-price{margin-top:14px;display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;}
+/* row-gap a 0: el hueco entre "starting at" y el precio lo fija el margen del
+   propio rótulo, no el gap del contenedor. La separación horizontal entre el
+   importe y "/month" se mantiene en 5px. */
+.ht-price{margin-top:14px;display:flex;align-items:baseline;gap:0 5px;flex-wrap:wrap;}
 /* "starting at" ocupa toda la fila del contenedor flex, así que cae en su
    propia línea encima del precio en vez de precederlo en la misma. */
-.ht-from{flex-basis:100%;font-size:12.5px;font-weight:600;color:var(--faint);margin-bottom:2px;}
+.ht-from{flex-basis:100%;font-size:12.5px;font-weight:600;line-height:1.15;color:var(--faint);margin-bottom:1px;}
 .ht-num{font-size:clamp(30px,2.4vw,38px);font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.03em;}
 .ht-per{font-size:13px;font-weight:600;color:var(--faint);}
 
