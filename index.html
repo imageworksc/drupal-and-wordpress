@@ -467,13 +467,20 @@ table{border-collapse:separate;border-spacing:0;}
 
 /* un elemento por lavado, movido con transform: relojes y direcciones
    distintas, así se separan y se reencuentran en vez de deslizarse en bloque */
+/* La capa mide lo que el hero y la máscara se expresa en porcentajes, no en
+   píxeles fijos. Antes eran 1040px de alto con el desvanecido de 330 a 600,
+   pero el hero mide 560: los lavados llegaban al borde inferior todavía con un
+   15% de opacidad y se cortaban en seco, y ese corte era la línea que se veía
+   entre el hero y la sección siguiente. Ahora se apagan del todo un 12% antes
+   del final, así que el hero termina en el mismo tinte plano con el que
+   arranca la banda de abajo y la unión es invisible. */
 .hero-wash{
   position:absolute;top:0;left:0;right:0;
-  block-size:1040px;
+  block-size:100%;
   z-index:-1;
   overflow:hidden;pointer-events:none;
-  mask-image:linear-gradient(180deg,#000 0,#000 330px,transparent 600px);
-  -webkit-mask-image:linear-gradient(180deg,#000 0,#000 330px,transparent 600px);
+  mask-image:linear-gradient(180deg,#000 0,#000 52%,transparent 88%);
+  -webkit-mask-image:linear-gradient(180deg,#000 0,#000 52%,transparent 88%);
 }
 /* Los tres lavados con su tamaño y su sitio originales. Lo único que cambia
    respecto al original es que solo se desplazan en vertical: al no correrse en
