@@ -65,10 +65,10 @@
 
   /* ---- escala tipográfica, anclada en el h1 de 46px / h2 de 44px ---- */
   --step--1:clamp(12.5px,.18vw + 12px,13.5px);
-  --step-0:clamp(15.5px,.25vw + 15px,17px);
-  --step-1:clamp(16.5px,.4vw + 15.5px,18px);
-  --step-2:clamp(19px,.9vw + 17px,23px);
-  --step-3:clamp(28px,2.6vw + 18px,44px);
+  --step-0:16px;
+  --step-1:18px;
+  --step-2:20px;
+  --step-3:clamp(26px,3vw,38px);
   --step-4:clamp(34px,3vw + 20px,46px);
 
   --ease:cubic-bezier(.16,.84,.44,1);
@@ -171,7 +171,7 @@ table{border-collapse:separate;border-spacing:0;}
    -------------------------------------------------------------------------- */
 .sec-title,h2{
   font-size:var(--step-3);
-  letter-spacing:-.018em;
+  letter-spacing:-.5px;
 }
 .lead{
   font-size:var(--step-1);
@@ -201,7 +201,7 @@ table{border-collapse:separate;border-spacing:0;}
   border-radius:var(--r);
   border:1.5px solid transparent;
   font:inherit;
-  font-size:16px;font-weight:700;line-height:1;
+  font-size:15px;font-weight:700;line-height:1;
   text-decoration:none;
   white-space:nowrap;
   cursor:pointer;
@@ -223,7 +223,7 @@ table{border-collapse:separate;border-spacing:0;}
 .band--cta .btn--solid{
   height:58px;
   padding-inline:36px;
-  font-size:17px;
+  font-size:15px;
   box-shadow:0 1px 2px rgba(20,40,80,.14);
 }
 
@@ -546,13 +546,15 @@ table{border-collapse:separate;border-spacing:0;}
   50%{background-position:-24% 0;}
 }
 
-.hero-inner{position:relative;text-align:left;}
+/* Dos columnas como el hero del documento: la copia a la izquierda y el
+   gráfico a la derecha. */
+.hero-inner{position:relative;text-align:left;display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:center;}
 .hero-main{display:flex;flex-direction:column;align-items:flex-start;gap:22px;}
 
 .hero h1{
-  font-size:clamp(min(9vw,36px),4.2vw + 8px,60px);
-  line-height:1.08;
-  letter-spacing:-.035em;
+  font-size:clamp(32px,4.2vw,48px);
+  line-height:1.12;
+  letter-spacing:-.8px;
   max-width:19ch;
   text-wrap:balance;
 }
@@ -560,22 +562,111 @@ table{border-collapse:separate;border-spacing:0;}
 /* En una sola línea: a 23px el texto mide 592px, así que entra con holgura.
    El `max-width` de 34ch era lo que lo partía en dos. */
 .hero .subhead{
-  font-size:clamp(18px,.9vw + 15px,23px);
+  font-size:20px;
   font-weight:800;
-  line-height:1.25;
-  letter-spacing:-.018em;
+  line-height:1.3;
+  letter-spacing:-.3px;
   color:var(--green-ink);
-  white-space:nowrap;
 }
 .hero p.body{
-  font-size:clamp(16.5px,.55vw + 15px,18.5px);
-  line-height:1.65;
+  font-size:18px;
+  line-height:1.75;
   font-weight:500;
   max-width:56ch;
   color:var(--muted);
   text-wrap:pretty;
 }
 .hero .btn{margin-top:10px;}
+/* --------------------------------------------------------------------------
+   GRÁFICO DEL HERO — bodegón de mantenimiento, hecho solo con formas CSS
+   Misma construcción que el del documento de branding: una tarjeta girada, una
+   tira de piezas girada al otro lado y una marca circular que las solapa. Aquí
+   el tema es el de esta página: un sitio revisado, los dos CMS y la llave.
+   Es puramente decorativo (aria-hidden) y no afirma ningún dato: barras, no
+   cifras.
+   -------------------------------------------------------------------------- */
+.hero-visual{position:relative;}
+.upkeep{position:relative;width:100%;height:360px;}
+
+/* la ventana del sitio, girada como la tarjeta del documento */
+.uk-card{
+  position:absolute;top:8px;left:4%;width:76%;
+  background:var(--white);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 20px 44px rgba(20,60,102,.18);
+  transform:rotate(-5deg);
+}
+.uk-chrome{
+  display:flex;align-items:center;gap:6px;
+  padding:11px 16px;
+  background:#f4f6fa;
+  border-bottom:1px solid var(--border);
+}
+.uk-chrome i{inline-size:8px;block-size:8px;border-radius:50%;background:#d5dde8;}
+.uk-body{padding:20px 22px 22px;}
+
+.uk-head{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.uk-shield{
+  flex:none;display:grid;place-items:center;
+  inline-size:38px;block-size:38px;
+  border-radius:var(--r);
+  background:var(--tint-green);
+  color:var(--navy);
+}
+.uk-shield svg{inline-size:22px;block-size:22px;}
+.uk-headbars{display:flex;flex-direction:column;gap:7px;flex:1;}
+.uk-headbars i{block-size:9px;border-radius:4px;background:var(--grey-soft);}
+
+.uk-row{display:flex;align-items:center;gap:11px;margin-top:12px;}
+.uk-tick{
+  flex:none;position:relative;
+  inline-size:18px;block-size:18px;
+  border-radius:50%;
+  background:var(--chip-green);
+}
+/* la palomita, dibujada con dos bordes */
+.uk-tick::after{
+  content:'';position:absolute;left:5px;top:6px;
+  inline-size:7px;block-size:3.5px;
+  border-left:1.8px solid var(--green-ink);
+  border-bottom:1.8px solid var(--green-ink);
+  transform:rotate(-45deg);
+}
+.uk-bar{block-size:8px;border-radius:4px;background:var(--grey-soft);}
+/* la última fila queda pendiente: el mantenimiento es continuo, no un final */
+.uk-row--pending .uk-tick{background:var(--grey-soft);}
+.uk-row--pending .uk-tick::after{border-color:#aab6c6;}
+.uk-row--pending .uk-bar{background:#eef1f6;}
+.w82{width:82%;}.w74{width:74%;}.w70{width:70%;}.w64{width:64%;}.w52{width:52%;}.w40{width:40%;}
+
+/* la tira de plataformas, girada al otro lado como las muestras del documento */
+.uk-plats{
+  position:absolute;right:2%;bottom:26px;
+  display:flex;align-items:center;gap:1px;
+  padding:9px;
+  background:var(--white);
+  border-radius:10px;
+  box-shadow:0 14px 30px rgba(20,60,102,.16);
+  transform:rotate(4deg);
+}
+.uk-plat{display:grid;place-items:center;inline-size:44px;block-size:44px;border-radius:8px;}
+.uk-plat svg{inline-size:26px;block-size:26px;}
+.uk-plat--wp{background:#e8f1f7;}
+.uk-plat--dr{background:#e3f1fb;}
+.uk-plat--up{background:var(--tint-green);}
+
+/* la marca circular que solapa, como el disco "IW" del documento */
+.uk-mark{
+  position:absolute;top:57%;left:57%;
+  inline-size:84px;block-size:84px;
+  border-radius:50%;
+  background:var(--navy);
+  box-shadow:0 16px 32px rgba(20,60,102,.26);
+  display:grid;place-items:center;
+  transform:translate(-50%,-50%) rotate(8deg);
+}
+.uk-mark svg{inline-size:38px;block-size:38px;transform:rotate(-8deg);}
 
 /* Entrada escalonada: cada bloque sube con su propio retardo. `backwards`
    suelta el relleno al terminar, así el hover sigue mandando. */
@@ -741,7 +832,7 @@ table{border-collapse:separate;border-spacing:0;}
    CABECERA DE SECCIÓN
    -------------------------------------------------------------------------- */
 .section-head{max-width:820px;margin-bottom:clamp(36px,4vw,50px);}
-.section-head p{margin-top:14px;font-size:clamp(17px,1.4vw,20px);font-weight:500;color:var(--muted);}
+.section-head p{margin-top:14px;font-size:18px;font-weight:500;color:var(--muted);}
 /* Medido: a 760px el lede cae en tres líneas y a 780 ya en dos. 840 mantiene
    ese mismo corte (764/746, bien equilibrado) con 76px de holgura, para que un
    render de fuente algo más ancho no lo devuelva a tres. */
@@ -968,7 +1059,7 @@ table.plans .ck{display:inline-block;vertical-align:-2px;}
 .cta-badge svg [stroke]{stroke:currentColor;}
 .cta-copy{flex:1;}
 .plans-cta h3{font-size:var(--step-2);}
-.plans-cta p{margin-top:8px;font-size:15px;line-height:1.7;color:var(--muted);max-width:56ch;}
+.plans-cta p{margin-top:8px;font-size:16px;line-height:1.7;color:var(--muted);max-width:56ch;}
 .plans-cta .btn{flex:none;}
 
 .plan-cards{display:none;}
@@ -1072,7 +1163,7 @@ table.plans tr.grp-row th::before{display:none;}
   position:relative;
   padding:18px 0 18px 38px;
   border-top:1px solid var(--border);
-  font-size:15.5px;line-height:1.7;color:var(--muted);
+  font-size:16px;line-height:1.7;color:var(--muted);
 }
 /* el mismo círculo tintado de 22px que la marca usa para cada check */
 .host-points li::before{
@@ -1148,7 +1239,7 @@ table.plans tr.grp-row th::before{display:none;}
 }
 .plat-wp .plat-logo{background:#e7eff4;}
 .plat-dr .plat-logo{background:#e3f1fb;}
-.plat-pad h2{font-size:var(--step-2);}
+.plat-pad h2{font-size:22px;}
 .plat-pad p{font-size:15px;line-height:1.7;color:var(--muted);}
 /* mismo recurso que ya usan la lista de hosting y los pies de tabla: la palabra
    clave sube a navy y a 700 sobre el gris del cuerpo */
@@ -1177,7 +1268,7 @@ table.plans tr.grp-row th::before{display:none;}
   display:flex;align-items:center;justify-content:space-between;gap:24px;
   list-style:none;cursor:pointer;
   padding:22px 8px;
-  font-size:var(--step-1);font-weight:700;color:var(--navy);line-height:1.4;
+  font-size:17px;font-weight:700;color:var(--navy);line-height:1.4;
   transition:color .2s var(--ease), padding .3s var(--ease);
 }
 .faq summary::-webkit-details-marker{display:none;}
@@ -1203,7 +1294,7 @@ table.plans tr.grp-row th::before{display:none;}
   color:#143c1f;
 }
 .faq .faq-body{padding:0 26px 28px;}
-.faq .faq-body p{font-size:var(--step-0);line-height:1.75;color:var(--muted);max-width:68ch;}
+.faq .faq-body p{font-size:16px;line-height:1.75;color:var(--muted);max-width:68ch;}
 .faq .faq-body a{color:var(--blue);font-weight:700;text-decoration:none;position:relative;}
 .faq .faq-body a::after{
   content:'';position:absolute;left:0;right:0;bottom:-3px;height:1.5px;
@@ -1345,6 +1436,9 @@ table.plans tr.grp-row th::before{display:none;}
    RESPONSIVE
    -------------------------------------------------------------------------- */
 @media (max-width:960px){
+  /* El hero pasa a una columna; la copia queda primero y el gráfico debajo. */
+  .hero-inner{grid-template-columns:1fr;gap:44px;}
+  .upkeep{height:320px;max-width:520px;}
   .ww-grid{grid-template-columns:1fr;gap:36px;}
   .host-grid{grid-template-columns:1fr;gap:36px;}
   .host-tiers{position:static;grid-template-columns:1fr 1fr;}
@@ -1430,11 +1524,6 @@ table.plans tr.grp-row th::before{display:none;}
   }
   .pc-cta .pbtn{margin-top:0;width:100%;}
 }
-/* Por debajo de 640px el texto ya no cabe de una pieza a un cuerpo legible,
-   así que ahí se le devuelve el salto de línea. */
-@media (max-width:640px){
-  .hero .subhead{white-space:normal;}
-}
 @media (max-width:600px){
   /* a ancho completo el rótulo más largo no cabe en una línea con el relleno
      de escritorio: se deja envolver y la altura la fija el contenido */
@@ -1446,6 +1535,7 @@ table.plans tr.grp-row th::before{display:none;}
   }
   .band--cta .btn--solid{min-height:58px;padding-inline:22px;}
   .hero .btn{width:auto;}
+  .upkeep{height:260px;}
   .host-tiers{grid-template-columns:1fr;}
   .faq summary{font-size:16.5px;padding:20px 4px;}
   .faq details[open] summary{padding-inline:18px;}
@@ -1585,6 +1675,43 @@ table.plans tr.grp-row th::before{display:none;}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
       </a>
     </div>
+      <div class="hero-visual">
+        <div class="upkeep" aria-hidden="true">
+
+          <div class="uk-card">
+            <div class="uk-chrome"><i></i><i></i><i></i></div>
+            <div class="uk-body">
+              <div class="uk-head">
+                <span class="uk-shield">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 2.6v5.1c0 4.6-3 7.7-7 9.3-4-1.6-7-4.7-7-9.3V5.6L12 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4.5" stroke="#80C34A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="uk-headbars"><i class="w70"></i><i class="w40"></i></span>
+              </div>
+              <div class="uk-row"><span class="uk-tick"></span><i class="uk-bar w82"></i></div>
+              <div class="uk-row"><span class="uk-tick"></span><i class="uk-bar w64"></i></div>
+              <div class="uk-row"><span class="uk-tick"></span><i class="uk-bar w74"></i></div>
+              <div class="uk-row uk-row--pending"><span class="uk-tick"></span><i class="uk-bar w52"></i></div>
+            </div>
+          </div>
+
+          <div class="uk-plats">
+            <span class="uk-plat uk-plat--wp">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#21759B" d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/></svg>
+            </span>
+            <span class="uk-plat uk-plat--dr">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#0678BE" d="M15.78 5.113C14.09 3.425 12.48 1.815 11.998 0c-.48 1.815-2.09 3.425-3.778 5.113-2.534 2.53-5.405 5.4-5.405 9.702a9.184 9.185 0 1018.368 0c0-4.303-2.871-7.171-5.405-9.702M6.72 16.954c-.563-.019-2.64-3.6 1.215-7.416l2.55 2.788a.218.218 0 01-.016.325c-.61.625-3.204 3.227-3.527 4.126-.066.186-.164.18-.222.177M12 21.677a3.158 3.158 0 01-3.158-3.159 3.291 3.291 0 01.787-2.087c.57-.696 2.37-2.655 2.37-2.655s1.774 1.988 2.367 2.649a3.09 3.09 0 01.792 2.093A3.158 3.158 0 0112 21.677m6.046-5.123c-.068.15-.223.398-.431.405-.371.014-.411-.177-.686-.583-.604-.892-5.864-6.39-6.848-7.455-.866-.935-.122-1.595.223-1.94C10.736 6.547 12 5.285 12 5.285s3.766 3.574 5.336 6.016c1.57 2.443 1.029 4.556.71 5.253"/></svg>
+            </span>
+            <span class="uk-plat uk-plat--up">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V6M6 12l6-6 6 6" stroke="#4a8628" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+
+          <div class="uk-mark">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M20 5.5a4.5 4.5 0 01-6 6l-6.4 6.4a1.8 1.8 0 11-2.5-2.5L11.5 9a4.5 4.5 0 016-6l-3 3 2.5 2.5 3-3z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          </div>
+
+        </div>
+      </div>
   </div>
 </section>
 
