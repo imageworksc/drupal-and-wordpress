@@ -548,7 +548,7 @@ table{border-collapse:separate;border-spacing:0;}
 
 /* Dos columnas como el hero del documento: la copia a la izquierda y el
    gráfico a la derecha. */
-.hero-inner{position:relative;text-align:left;display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:center;}
+.hero-inner{position:relative;text-align:left;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(36px,4.6vw,56px);align-items:center;}
 .hero-main{display:flex;flex-direction:column;align-items:flex-start;gap:22px;}
 
 .hero h1{
@@ -578,95 +578,184 @@ table{border-collapse:separate;border-spacing:0;}
 }
 .hero .btn{margin-top:10px;}
 /* --------------------------------------------------------------------------
-   GRÁFICO DEL HERO — bodegón de mantenimiento, hecho solo con formas CSS
-   Misma construcción que el del documento de branding: una tarjeta girada, una
-   tira de piezas girada al otro lado y una marca circular que las solapa. Aquí
-   el tema es el de esta página: un sitio revisado, los dos CMS y la llave.
-   Es puramente decorativo (aria-hidden) y no afirma ningún dato: barras, no
-   cifras.
+   TABLERO DEL HERO
+   La misma carcasa que el tablero de la página de Setup & Optimization: cinco
+   fichas en retícula, fondo de tarjeta, filete verde que entra por arriba al
+   pasar el cursor y elevación de 4px. Lo que cambia es lo que hay dentro: el
+   sitio funcionando, el core de cada CMS, la cola de incidencias, las tareas
+   del mes y las horas. Es decorativo (aria-hidden) y no afirma ninguna cifra.
    -------------------------------------------------------------------------- */
-.hero-visual{position:relative;}
-.upkeep{position:relative;width:100%;height:360px;}
+.mb{
+  display:grid;
+  grid-template-columns:minmax(0,1.32fr) minmax(0,1fr);
+  gap:12px;
+  width:100%;
+  max-width:460px;
+  margin-inline:auto;
+}
 
-/* la ventana del sitio, girada como la tarjeta del documento */
-.uk-card{
-  position:absolute;top:8px;left:4%;width:76%;
-  background:var(--white);
-  border-radius:10px;
+/* ---- la ficha compartida ---- */
+.mb-t{
+  position:relative;
   overflow:hidden;
-  box-shadow:0 20px 44px rgba(20,60,102,.18);
-  transform:rotate(-5deg);
-}
-.uk-chrome{
-  display:flex;align-items:center;gap:6px;
-  padding:11px 16px;
-  background:#f4f6fa;
-  border-bottom:1px solid var(--border);
-}
-.uk-chrome i{inline-size:8px;block-size:8px;border-radius:50%;background:#d5dde8;}
-.uk-body{padding:20px 22px 22px;}
-
-.uk-head{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
-.uk-shield{
-  flex:none;display:grid;place-items:center;
-  inline-size:38px;block-size:38px;
+  padding:14px 16px;
   border-radius:var(--r);
-  background:var(--tint-green);
-  color:var(--navy);
+  background:linear-gradient(180deg,var(--card-top),var(--card-bottom));
+  box-shadow:0 1px 3px rgba(20,40,80,.07), 0 12px 28px rgba(20,40,80,.10);
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease);
 }
-.uk-shield svg{inline-size:22px;block-size:22px;}
-.uk-headbars{display:flex;flex-direction:column;gap:7px;flex:1;}
-.uk-headbars i{block-size:9px;border-radius:4px;background:var(--grey-soft);}
+.mb-t::before{
+  content:'';
+  position:absolute;
+  top:0;
+  inset-inline:0;
+  z-index:3;
+  block-size:3px;
+  background:var(--green);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .45s var(--ease);
+}
+.mb-t:hover{
+  transform:translateY(-4px);
+  box-shadow:0 1px 3px rgba(20,40,80,.08), 0 20px 40px rgba(20,40,80,.16);
+}
+.mb-t:hover::before{transform:scaleX(1);}
 
-.uk-row{display:flex;align-items:center;gap:11px;margin-top:12px;}
-.uk-tick{
-  flex:none;position:relative;
-  inline-size:18px;block-size:18px;
-  border-radius:50%;
-  background:var(--chip-green);
+.mb-label{
+  font-size:8.5px;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--faint);
+  transition:color .35s var(--ease);
 }
-/* la palomita, dibujada con dos bordes */
-.uk-tick::after{
-  content:'';position:absolute;left:5px;top:6px;
-  inline-size:7px;block-size:3.5px;
-  border-left:1.8px solid var(--green-ink);
-  border-bottom:1.8px solid var(--green-ink);
-  transform:rotate(-45deg);
-}
-.uk-bar{block-size:8px;border-radius:4px;background:var(--grey-soft);}
-/* la última fila queda pendiente: el mantenimiento es continuo, no un final */
-.uk-row--pending .uk-tick{background:var(--grey-soft);}
-.uk-row--pending .uk-tick::after{border-color:#aab6c6;}
-.uk-row--pending .uk-bar{background:#eef1f6;}
-.w82{width:82%;}.w74{width:74%;}.w70{width:70%;}.w64{width:64%;}.w52{width:52%;}.w40{width:40%;}
+.mb-t:hover .mb-label{color:var(--navy);}
 
-/* la tira de plataformas, girada al otro lado como las muestras del documento */
-.uk-plats{
-  position:absolute;right:2%;bottom:26px;
-  display:flex;align-items:center;gap:1px;
-  padding:9px;
+/* ---- 1 · el sitio, funcionando ---- */
+.mb-site{grid-column:1;grid-row:1 / span 2;display:flex;flex-direction:column;}
+.mb-site__bar{
+  margin-top:11px;
+  display:flex;align-items:center;gap:7px;
+  padding:5px 9px;
+  border-radius:20px;
   background:var(--white);
-  border-radius:10px;
-  box-shadow:0 14px 30px rgba(20,60,102,.16);
-  transform:rotate(4deg);
+  box-shadow:inset 0 0 0 1px var(--border);
 }
-.uk-plat{display:grid;place-items:center;inline-size:44px;block-size:44px;border-radius:8px;}
-.uk-plat svg{inline-size:26px;block-size:26px;}
-.uk-plat--wp{background:#e8f1f7;}
-.uk-plat--dr{background:#e3f1fb;}
-.uk-plat--up{background:var(--tint-green);}
+.mb-site__bar svg{inline-size:10px;block-size:10px;flex:none;color:var(--green-ink);}
+.mb-site__q{
+  flex:1;block-size:4px;border-radius:2px;background:var(--grey-soft);
+  transform-origin:left;
+  animation:mbLoad 19s ease-in-out infinite;
+}
+@keyframes mbLoad{
+  0%{transform:scaleX(.18);}
+  26%,100%{transform:scaleX(1);}
+}
+.mb-site__card{
+  margin-top:10px;
+  flex:1;
+  display:flex;flex-direction:column;justify-content:center;gap:7px;
+}
+.mb-site__url{font-size:9.5px;font-weight:600;color:var(--green-ink);letter-spacing:.01em;}
+.mb-site__title{
+  position:relative;
+  align-self:flex-start;
+  font-size:13.5px;font-weight:700;color:var(--blue);
+  line-height:1.25;letter-spacing:-.01em;
+}
+/* el subrayado se dibuja y se retira, muy despacio */
+.mb-site__title::after{
+  content:'';
+  position:absolute;left:0;right:0;bottom:-2px;
+  block-size:1.5px;background:currentColor;
+  transform:scaleX(0);transform-origin:left;
+  animation:mbUnderline 19s ease-in-out infinite;
+}
+.mb-site:hover .mb-site__title::after{animation:none;transform:scaleX(1);}
+@keyframes mbUnderline{
+  0%,62%{transform:scaleX(0);}
+  72%,92%{transform:scaleX(1);}
+  100%{transform:scaleX(0);}
+}
+.mb-site__line{block-size:5px;border-radius:3px;background:var(--grey-soft);}
+.mb-site__line--short{inline-size:62%;}
 
-/* la marca circular que solapa, como el disco "IW" del documento */
-.uk-mark{
-  position:absolute;top:57%;left:57%;
-  inline-size:84px;block-size:84px;
-  border-radius:50%;
-  background:var(--navy);
-  box-shadow:0 16px 32px rgba(20,60,102,.26);
-  display:grid;place-items:center;
-  transform:translate(-50%,-50%) rotate(8deg);
+/* ---- 2 · el core de cada plataforma, al día ---- */
+.mb-core{grid-column:2;grid-row:1;}
+.mb-core__set{margin-top:10px;display:flex;flex-direction:column;gap:9px;}
+.mb-core__set li{display:flex;align-items:center;gap:8px;}
+.mb-core__set li svg{inline-size:15px;block-size:15px;flex:none;}
+.mb-core__set li span{
+  flex:1;block-size:5px;border-radius:3px;
+  background:var(--grey-soft);
+  animation:mbPatch 13s ease-in-out infinite;
 }
-.uk-mark svg{inline-size:38px;block-size:38px;transform:rotate(-8deg);}
+.mb-core__set li:nth-child(2) span{animation-delay:-6.4s;}
+@keyframes mbPatch{
+  0%,70%{background:var(--grey-soft);}
+  78%,88%{background:var(--chip-green);}
+  100%{background:var(--grey-soft);}
+}
+
+/* ---- 3 · la cola de incidencias, por severidad ---- */
+.mb-issues{grid-column:2;grid-row:2;}
+.mb-issues__set{margin-top:10px;display:flex;flex-direction:column;gap:7px;}
+.mb-issues__set li{
+  display:flex;align-items:center;gap:7px;
+  font-size:8px;font-weight:800;letter-spacing:.06em;
+  color:var(--faint);
+}
+/* la etiqueta a ancho fijo para que las tres barras arranquen alineadas, y
+   longitudes que respetan la proporción real: pocos errores, muchas notas */
+.mb-issues__set li b{inline-size:46px;flex:none;font-weight:800;}
+.mb-issues__set li span{block-size:5px;border-radius:3px;}
+.mb-issues__set li:nth-child(1) span{flex:none;inline-size:16%;background:#dcb4b4;}
+.mb-issues__set li:nth-child(2) span{flex:none;inline-size:42%;background:#c6d2e2;}
+.mb-issues__set li:nth-child(3) span{flex:1;background:var(--chip-blue);}
+
+/* ---- 4 · lo que se hace cada mes ---- */
+.mb-checks{grid-column:1;grid-row:3;}
+.mb-checks__set{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px;}
+.mb-checks__set li{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 8px;border-radius:var(--r);
+  background:var(--tint-green);
+  font-size:9px;font-weight:700;color:var(--green-ink);
+  white-space:nowrap;
+}
+.mb-checks__set li::before{
+  content:'';
+  inline-size:9px;block-size:9px;flex:none;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.9);
+  animation:mbTick 11s ease-in-out infinite;
+}
+.mb-checks__set li:nth-child(2)::before{animation-delay:-7.4s;}
+.mb-checks__set li:nth-child(3)::before{animation-delay:-3.7s;}
+@keyframes mbTick{
+  0%,74%{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.9);}
+  82%,94%{box-shadow:inset 0 0 0 4.5px rgba(255,255,255,.9);}
+  100%{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.9);}
+}
+
+/* ---- 5 · las horas dedicadas ---- */
+.mb-hours{grid-column:2;grid-row:3;}
+.mb-hours__body{margin-top:11px;display:flex;align-items:flex-start;gap:8px;}
+.mb-hours__clock{
+  flex:none;inline-size:15px;block-size:15px;color:var(--green-ink);
+  animation:mbPulse 9s ease-in-out infinite;
+}
+.mb-hours__lines{flex:1;display:flex;flex-direction:column;gap:5px;padding-top:2px;}
+.mb-hours__lines span{block-size:5px;border-radius:3px;background:var(--grey-soft);}
+.mb-hours__lines span:nth-child(2){inline-size:78%;}
+.mb-hours__lines span:nth-child(3){inline-size:52%;}
+@keyframes mbPulse{
+  0%,72%{transform:scale(1);opacity:.85;}
+  84%{transform:scale(1.15);opacity:1;}
+  100%{transform:scale(1);opacity:.85;}
+}
 
 /* Entrada escalonada: cada bloque sube con su propio retardo. `backwards`
    suelta el relleno al terminar, así el hover sigue mandando. */
@@ -1438,7 +1527,7 @@ table.plans tr.grp-row th::before{display:none;}
 @media (max-width:960px){
   /* El hero pasa a una columna; la copia queda primero y el gráfico debajo. */
   .hero-inner{grid-template-columns:1fr;gap:44px;}
-  .upkeep{height:320px;max-width:520px;}
+  .mb{max-width:400px;margin-inline:0;}
   .ww-grid{grid-template-columns:1fr;gap:36px;}
   .host-grid{grid-template-columns:1fr;gap:36px;}
   .host-tiers{position:static;grid-template-columns:1fr 1fr;}
@@ -1535,7 +1624,6 @@ table.plans tr.grp-row th::before{display:none;}
   }
   .band--cta .btn--solid{min-height:58px;padding-inline:22px;}
   .hero .btn{width:auto;}
-  .upkeep{height:260px;}
   .host-tiers{grid-template-columns:1fr;}
   .faq summary{font-size:16.5px;padding:20px 4px;}
   .faq details[open] summary{padding-inline:18px;}
@@ -1675,42 +1763,65 @@ table.plans tr.grp-row th::before{display:none;}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
       </a>
     </div>
-      <div class="hero-visual">
-        <div class="upkeep" aria-hidden="true">
+      <!-- Lo que entrega un plan de mantenimiento: el sitio funcionando, el core
+           de cada CMS al día, la cola de incidencias, las tareas del mes y las
+           horas dedicadas. -->
+      <div class="mb" aria-hidden="true">
 
-          <div class="uk-card">
-            <div class="uk-chrome"><i></i><i></i><i></i></div>
-            <div class="uk-body">
-              <div class="uk-head">
-                <span class="uk-shield">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 2.6v5.1c0 4.6-3 7.7-7 9.3-4-1.6-7-4.7-7-9.3V5.6L12 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4.5" stroke="#80C34A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                <span class="uk-headbars"><i class="w70"></i><i class="w40"></i></span>
-              </div>
-              <div class="uk-row"><span class="uk-tick"></span><i class="uk-bar w82"></i></div>
-              <div class="uk-row"><span class="uk-tick"></span><i class="uk-bar w64"></i></div>
-              <div class="uk-row"><span class="uk-tick"></span><i class="uk-bar w74"></i></div>
-              <div class="uk-row uk-row--pending"><span class="uk-tick"></span><i class="uk-bar w52"></i></div>
-            </div>
+        <div class="mb-t mb-site">
+          <p class="mb-label">Site</p>
+          <div class="mb-site__bar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></svg>
+            <span class="mb-site__q"></span>
           </div>
-
-          <div class="uk-plats">
-            <span class="uk-plat uk-plat--wp">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#21759B" d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/></svg>
-            </span>
-            <span class="uk-plat uk-plat--dr">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#0678BE" d="M15.78 5.113C14.09 3.425 12.48 1.815 11.998 0c-.48 1.815-2.09 3.425-3.778 5.113-2.534 2.53-5.405 5.4-5.405 9.702a9.184 9.185 0 1018.368 0c0-4.303-2.871-7.171-5.405-9.702M6.72 16.954c-.563-.019-2.64-3.6 1.215-7.416l2.55 2.788a.218.218 0 01-.016.325c-.61.625-3.204 3.227-3.527 4.126-.066.186-.164.18-.222.177M12 21.677a3.158 3.158 0 01-3.158-3.159 3.291 3.291 0 01.787-2.087c.57-.696 2.37-2.655 2.37-2.655s1.774 1.988 2.367 2.649a3.09 3.09 0 01.792 2.093A3.158 3.158 0 0112 21.677m6.046-5.123c-.068.15-.223.398-.431.405-.371.014-.411-.177-.686-.583-.604-.892-5.864-6.39-6.848-7.455-.866-.935-.122-1.595.223-1.94C10.736 6.547 12 5.285 12 5.285s3.766 3.574 5.336 6.016c1.57 2.443 1.029 4.556.71 5.253"/></svg>
-            </span>
-            <span class="uk-plat uk-plat--up">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V6M6 12l6-6 6 6" stroke="#4a8628" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
+          <div class="mb-site__card">
+            <span class="mb-site__url">wordpress &middot; drupal</span>
+            <span class="mb-site__title">Running properly</span>
+            <span class="mb-site__line"></span>
+            <span class="mb-site__line mb-site__line--short"></span>
           </div>
-
-          <div class="uk-mark">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M20 5.5a4.5 4.5 0 01-6 6l-6.4 6.4a1.8 1.8 0 11-2.5-2.5L11.5 9a4.5 4.5 0 016-6l-3 3 2.5 2.5 3-3z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/></svg>
-          </div>
-
         </div>
+
+        <div class="mb-t mb-core">
+          <p class="mb-label">Core</p>
+          <ul class="mb-core__set">
+            <li>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#21759B" d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/></svg>
+              <span></span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#0678BE" d="M15.78 5.113C14.09 3.425 12.48 1.815 11.998 0c-.48 1.815-2.09 3.425-3.778 5.113-2.534 2.53-5.405 5.4-5.405 9.702a9.184 9.185 0 1018.368 0c0-4.303-2.871-7.171-5.405-9.702M6.72 16.954c-.563-.019-2.64-3.6 1.215-7.416l2.55 2.788a.218.218 0 01-.016.325c-.61.625-3.204 3.227-3.527 4.126-.066.186-.164.18-.222.177M12 21.677a3.158 3.158 0 01-3.158-3.159 3.291 3.291 0 01.787-2.087c.57-.696 2.37-2.655 2.37-2.655s1.774 1.988 2.367 2.649a3.09 3.09 0 01.792 2.093A3.158 3.158 0 0112 21.677m6.046-5.123c-.068.15-.223.398-.431.405-.371.014-.411-.177-.686-.583-.604-.892-5.864-6.39-6.848-7.455-.866-.935-.122-1.595.223-1.94C10.736 6.547 12 5.285 12 5.285s3.766 3.574 5.336 6.016c1.57 2.443 1.029 4.556.71 5.253"/></svg>
+              <span></span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mb-t mb-issues">
+          <p class="mb-label">Issues</p>
+          <ul class="mb-issues__set">
+            <li><b>Errors</b><span></span></li>
+            <li><b>Warnings</b><span></span></li>
+            <li><b>Notices</b><span></span></li>
+          </ul>
+        </div>
+
+        <div class="mb-t mb-checks">
+          <p class="mb-label">Monthly</p>
+          <ul class="mb-checks__set">
+            <li>Patches</li>
+            <li>Audits</li>
+            <li>Fixes</li>
+          </ul>
+        </div>
+
+        <div class="mb-t mb-hours">
+          <p class="mb-label">Hours</p>
+          <div class="mb-hours__body">
+            <svg class="mb-hours__clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>
+            <span class="mb-hours__lines"><span></span><span></span><span></span></span>
+          </div>
+        </div>
+
       </div>
   </div>
 </section>
