@@ -585,12 +585,15 @@ table{border-collapse:separate;border-spacing:0;}
    sitio funcionando, el core de cada CMS, la cola de incidencias, las tareas
    del mes y las horas. Es decorativo (aria-hidden) y no afirma ninguna cifra.
    -------------------------------------------------------------------------- */
+/* Dos fichas, no cinco: la del sitio arriba a ancho completo y la de
+   mantenimiento debajo, más estrecha y desplazada a la derecha. El escalón
+   evita que se lea como una tabla y le da una composición propia. */
 .mb{
-  display:grid;
-  grid-template-columns:minmax(0,1.32fr) minmax(0,1fr);
-  gap:12px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
   width:100%;
-  max-width:460px;
+  max-width:400px;
   margin-inline:auto;
 }
 
@@ -633,7 +636,7 @@ table{border-collapse:separate;border-spacing:0;}
 .mb-t:hover .mb-label{color:var(--navy);}
 
 /* ---- 1 · el sitio, funcionando ---- */
-.mb-site{grid-column:1;grid-row:1 / span 2;display:flex;flex-direction:column;}
+.mb-site{display:flex;flex-direction:column;}
 .mb-site__bar{
   margin-top:11px;
   display:flex;align-items:center;gap:7px;
@@ -682,7 +685,7 @@ table{border-collapse:separate;border-spacing:0;}
 .mb-site__line--short{inline-size:62%;}
 
 /* ---- 2 · el core de cada plataforma, al día ---- */
-.mb-core{grid-column:2;grid-row:1;}
+.mb-care{width:84%;margin-left:auto;}
 .mb-core__set{margin-top:10px;display:flex;flex-direction:column;gap:9px;}
 .mb-core__set li{display:flex;align-items:center;gap:8px;}
 .mb-core__set li svg{inline-size:15px;block-size:15px;flex:none;}
@@ -698,25 +701,8 @@ table{border-collapse:separate;border-spacing:0;}
   100%{background:var(--grey-soft);}
 }
 
-/* ---- 3 · la cola de incidencias, por severidad ---- */
-.mb-issues{grid-column:2;grid-row:2;}
-.mb-issues__set{margin-top:10px;display:flex;flex-direction:column;gap:7px;}
-.mb-issues__set li{
-  display:flex;align-items:center;gap:7px;
-  font-size:8px;font-weight:800;letter-spacing:.06em;
-  color:var(--faint);
-}
-/* la etiqueta a ancho fijo para que las tres barras arranquen alineadas, y
-   longitudes que respetan la proporción real: pocos errores, muchas notas */
-.mb-issues__set li b{inline-size:46px;flex:none;font-weight:800;}
-.mb-issues__set li span{block-size:5px;border-radius:3px;}
-.mb-issues__set li:nth-child(1) span{flex:none;inline-size:16%;background:#dcb4b4;}
-.mb-issues__set li:nth-child(2) span{flex:none;inline-size:42%;background:#c6d2e2;}
-.mb-issues__set li:nth-child(3) span{flex:1;background:var(--chip-blue);}
-
 /* ---- 4 · lo que se hace cada mes ---- */
-.mb-checks{grid-column:1;grid-row:3;}
-.mb-checks__set{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px;}
+.mb-checks__set{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;}
 .mb-checks__set li{
   display:inline-flex;align-items:center;gap:5px;
   padding:4px 8px;border-radius:var(--r);
@@ -740,22 +726,6 @@ table{border-collapse:separate;border-spacing:0;}
   100%{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.9);}
 }
 
-/* ---- 5 · las horas dedicadas ---- */
-.mb-hours{grid-column:2;grid-row:3;}
-.mb-hours__body{margin-top:11px;display:flex;align-items:flex-start;gap:8px;}
-.mb-hours__clock{
-  flex:none;inline-size:15px;block-size:15px;color:var(--green-ink);
-  animation:mbPulse 9s ease-in-out infinite;
-}
-.mb-hours__lines{flex:1;display:flex;flex-direction:column;gap:5px;padding-top:2px;}
-.mb-hours__lines span{block-size:5px;border-radius:3px;background:var(--grey-soft);}
-.mb-hours__lines span:nth-child(2){inline-size:78%;}
-.mb-hours__lines span:nth-child(3){inline-size:52%;}
-@keyframes mbPulse{
-  0%,72%{transform:scale(1);opacity:.85;}
-  84%{transform:scale(1.15);opacity:1;}
-  100%{transform:scale(1);opacity:.85;}
-}
 
 /* Entrada escalonada: cada bloque sube con su propio retardo. `backwards`
    suelta el relleno al terminar, así el hover sigue mandando. */
@@ -1527,7 +1497,7 @@ table.plans tr.grp-row th::before{display:none;}
 @media (max-width:960px){
   /* El hero pasa a una columna; la copia queda primero y el gráfico debajo. */
   .hero-inner{grid-template-columns:1fr;gap:44px;}
-  .mb{max-width:400px;margin-inline:0;}
+  .mb{max-width:380px;margin-inline:0;}
   .ww-grid{grid-template-columns:1fr;gap:36px;}
   .host-grid{grid-template-columns:1fr;gap:36px;}
   .host-tiers{position:static;grid-template-columns:1fr 1fr;}
@@ -1782,8 +1752,8 @@ table.plans tr.grp-row th::before{display:none;}
           </div>
         </div>
 
-        <div class="mb-t mb-core">
-          <p class="mb-label">Core</p>
+        <div class="mb-t mb-care">
+          <p class="mb-label">Maintained</p>
           <ul class="mb-core__set">
             <li>
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#21759B" d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/></svg>
@@ -1794,32 +1764,11 @@ table.plans tr.grp-row th::before{display:none;}
               <span></span>
             </li>
           </ul>
-        </div>
-
-        <div class="mb-t mb-issues">
-          <p class="mb-label">Issues</p>
-          <ul class="mb-issues__set">
-            <li><b>Errors</b><span></span></li>
-            <li><b>Warnings</b><span></span></li>
-            <li><b>Notices</b><span></span></li>
-          </ul>
-        </div>
-
-        <div class="mb-t mb-checks">
-          <p class="mb-label">Monthly</p>
           <ul class="mb-checks__set">
             <li>Patches</li>
             <li>Audits</li>
             <li>Fixes</li>
           </ul>
-        </div>
-
-        <div class="mb-t mb-hours">
-          <p class="mb-label">Hours</p>
-          <div class="mb-hours__body">
-            <svg class="mb-hours__clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>
-            <span class="mb-hours__lines"><span></span><span></span><span></span></span>
-          </div>
         </div>
 
       </div>
