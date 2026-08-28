@@ -787,7 +787,7 @@ table.plans tr.grp-row th::before{display:none;}
 }
 .host-points li strong{color:var(--navy);font-weight:700;}
 
-.host-tiers{position:sticky;top:calc(var(--nav-h) + 24px);display:grid;gap:20px;}
+.host-tiers{position:sticky;top:32px;display:grid;gap:20px;}
 .host-tier{
   padding:clamp(24px,2.6vw,30px);
   border-top:3px solid var(--blue);
